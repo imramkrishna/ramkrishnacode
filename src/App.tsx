@@ -114,37 +114,30 @@ const experience = [
 //   }
 // ];
 
-// Animation variants
+// Mobile-optimized Animation variants - only GPU-accelerated properties
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
+      staggerChildren: 0.05, // Faster for mobile
+      delayChildren: 0.1,
     },
   },
 };
 
+// Simplified mobile animations - GPU accelerated only
 const itemVariants = {
-  hidden: { y: 50, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      type: "spring" as const,
-      stiffness: 100,
-      damping: 12,
-    },
+  hidden: {
+    opacity: 0,
+    y: 10 // Reduced movement
   },
-};
-
-const floatingAnimation = {
-  y: [0, -20, 0],
-  transition: {
-    duration: 3,
-    repeat: Infinity,
-    ease: "easeInOut" as const,
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.2, // Much faster
+    },
   },
 };
 
@@ -239,25 +232,14 @@ function App() {
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Animated background elements */}
+      {/* Simplified animated background for mobile performance - single element instead of multiple */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute w-full h-full rounded-full -top-1/2 -left-1/2 bg-gradient-to-r from-blue-500/10 to-purple-500/10 blur-3xl"
+          className="absolute w-full h-full rounded-full -top-1/2 -left-1/2 bg-gradient-to-r from-blue-500/5 to-purple-500/5 blur-3xl"
           animate={{
-            x: [0, 100, 0],
-            y: [0, -50, 0],
-            scale: [1, 1.1, 1]
+            scale: [1, 1.02, 1] // Minimal animation
           }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        />
-        <motion.div
-          className="absolute w-full h-full rounded-full -bottom-1/2 -right-1/2 bg-gradient-to-l from-pink-500/10 to-blue-500/10 blur-3xl"
-          animate={{
-            x: [0, -100, 0],
-            y: [0, 50, 0],
-            scale: [1, 1.2, 1]
-          }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
@@ -410,11 +392,12 @@ function App() {
           initial="hidden"
           animate="visible"
         >
-          {/* Profile Image with Floating Animation */}
+          {/* Profile Image - Simplified floating animation for mobile */}
           <motion.div
-            className="mb-8"
+            className="mb-8 will-change-[transform]" // Add CSS will-change
             variants={itemVariants}
-            animate={floatingAnimation}
+            animate={{ y: [0, -5, 0] }} // Direct animation instead of variants
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
             <div className="w-48 h-48 p-2 mx-auto mb-8 rounded-full shadow-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
               <div className="w-full h-full overflow-hidden rounded-full shadow-inner">

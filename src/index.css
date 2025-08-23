@@ -2,11 +2,73 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Mobile Performance Optimizations */
+@layer base {
+
+  /* Add will-change for animated elements */
+  .will-change-transform-opacity {
+    will-change: transform, opacity;
+  }
+
+  /* GPU acceleration hints for mobile */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  /* Optimize animations for mobile */
+  @media (max-width: 768px) {
+    .mobile-optimized {
+      animation-duration: 0.2s !important;
+      transition-duration: 0.2s !important;
+    }
+
+    /* Disable complex animations on mobile for performance */
+    .mobile-disable-animation {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Smooth scroll behavior */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Optimize text rendering */
+  body {
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Line clamp utility for text truncation */
+  .line-clamp-4 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+  }
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background: #0f172a;
@@ -17,19 +79,19 @@
   .animation-delay-1000 {
     animation-delay: 1s;
   }
-  
+
   .animation-delay-2000 {
     animation-delay: 2s;
   }
-  
+
   .animation-delay-3000 {
     animation-delay: 3s;
   }
-  
+
   .text-shadow {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
-  
+
   .backdrop-blur-custom {
     backdrop-filter: blur(10px) saturate(100%) contrast(45%) brightness(130%);
   }
@@ -77,13 +139,27 @@
 
   /* Floating animation variations */
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-20px);
+    }
   }
 
   @keyframes float-delayed {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); }
+
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+
+    50% {
+      transform: translateY(-15px);
+    }
   }
 
   .float-animation {
@@ -97,9 +173,12 @@
 
   /* Pulse glow effect */
   @keyframes pulse-glow {
-    0%, 100% {
+
+    0%,
+    100% {
       box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
     }
+
     50% {
       box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 30px rgba(59, 130, 246, 0.4);
     }
@@ -111,7 +190,8 @@
 }
 
 /* Custom focus styles */
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
@@ -125,6 +205,7 @@ input:focus, textarea:focus {
   0% {
     background-position: -200px 0;
   }
+
   100% {
     background-position: calc(200px + 100%) 0;
   }
