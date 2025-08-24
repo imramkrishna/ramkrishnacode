@@ -250,11 +250,11 @@ function App() {
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
       >
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-4">
-            {/* Logo */}
+        <div className="px-3 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between py-3 sm:py-4">
+            {/* Logo - Responsive text size */}
             <motion.div
-              className="text-2xl font-bold text-transparent bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text"
+              className="text-lg font-bold text-transparent sm:text-xl md:text-2xl bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -262,12 +262,12 @@ function App() {
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden space-x-8 md:flex">
+            <div className="hidden space-x-4 md:space-x-6 lg:space-x-8 md:flex">
               {navItems.map((item) => (
                 <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`px-4 py-2 rounded-full transition-all duration-300 relative ${activeSection === item.id
+                  className={`px-3 lg:px-4 py-2 rounded-full transition-all duration-300 relative text-sm lg:text-base ${activeSection === item.id
                     ? 'text-blue-400'
                     : 'text-gray-300 hover:text-white'
                     }`}
@@ -286,8 +286,8 @@ function App() {
               ))}
             </div>
 
-            {/* Social Links */}
-            <div className="items-center hidden space-x-4 md:flex">
+            {/* Social Links - Hide on smaller tablets, show on desktop */}
+            <div className="items-center hidden space-x-3 lg:space-x-4 lg:flex">
               {[
                 { href: personalInfo.github, icon: Github, label: "GitHub" },
                 { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn" },
@@ -298,11 +298,11 @@ function App() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative p-3 text-gray-400 transition-all rounded-full bg-white/5 hover:bg-white/10 hover:text-white group"
+                  className="relative p-2 text-gray-400 transition-all rounded-full lg:p-3 bg-white/5 hover:bg-white/10 hover:text-white group"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <Icon className="w-5 h-5" />
+                  <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
                   <motion.div
                     className="absolute px-2 py-1 text-xs text-white transition-opacity transform -translate-x-1/2 bg-gray-900 rounded opacity-0 -top-12 left-1/2 group-hover:opacity-100 whitespace-nowrap"
                     initial={{ opacity: 0, y: 10 }}
@@ -314,11 +314,12 @@ function App() {
               ))}
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Larger touch target */}
             <motion.button
-              className="p-2 text-white rounded-lg md:hidden bg-white/5"
+              className="p-3 text-white rounded-lg md:hidden bg-white/5 min-w-[44px] min-h-[44px] flex items-center justify-center"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
+              aria-label="Toggle menu"
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -335,7 +336,7 @@ function App() {
           </div>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Improved spacing and touch targets */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
@@ -345,12 +346,12 @@ function App() {
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="px-4 py-6 space-y-4">
+              <div className="max-h-screen px-4 py-6 space-y-2 overflow-y-auto">
                 {navItems.map((item, index) => (
                   <motion.button
                     key={item.id}
                     onClick={() => scrollToSection(item.id)}
-                    className="block w-full px-4 py-3 text-left text-white transition-colors rounded-lg hover:bg-white/10"
+                    className="flex w-full px-6 py-4 text-left text-white transition-colors rounded-xl hover:bg-white/10 text-lg font-medium min-h-[56px] items-center"
                     initial={{ x: -50, opacity: 0 }}
                     animate={{ x: 0, opacity: 1 }}
                     transition={{ delay: index * 0.1 }}
@@ -358,23 +359,24 @@ function App() {
                     {item.name}
                   </motion.button>
                 ))}
-                <div className="flex justify-center pt-4 space-x-4">
+                <div className="flex justify-center pt-6 space-x-6">
                   {[
-                    { href: personalInfo.github, icon: Github },
-                    { href: personalInfo.linkedin, icon: Linkedin },
-                    { href: personalInfo.twitter, icon: Twitter }
-                  ].map(({ href, icon: Icon }, index) => (
+                    { href: personalInfo.github, icon: Github, label: "GitHub" },
+                    { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn" },
+                    { href: personalInfo.twitter, icon: Twitter, label: "Twitter" }
+                  ].map(({ href, icon: Icon, label }, index) => (
                     <motion.a
                       key={href}
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 text-gray-400 transition-colors rounded-full bg-white/10 hover:text-white"
+                      className="p-4 text-gray-400 transition-colors rounded-full bg-white/10 hover:text-white min-w-[56px] min-h-[56px] flex items-center justify-center"
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
                       transition={{ delay: 0.3 + index * 0.1 }}
+                      aria-label={label}
                     >
-                      <Icon className="w-5 h-5" />
+                      <Icon className="w-6 h-6" />
                     </motion.a>
                   ))}
                 </div>
@@ -385,21 +387,21 @@ function App() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section id="home" className="relative flex items-center justify-center min-h-screen pt-20">
+      <section id="home" className="relative flex items-center justify-center min-h-screen px-3 pt-16 sm:pt-20 sm:px-4">
         <motion.div
-          className="z-10 max-w-6xl px-4 mx-auto text-center"
+          className="z-10 max-w-6xl mx-auto text-center"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
         >
-          {/* Profile Image - Simplified floating animation for mobile */}
+          {/* Profile Image - Responsive sizing */}
           <motion.div
-            className="mb-8 will-change-[transform]" // Add CSS will-change
+            className="mb-6 sm:mb-8 will-change-[transform]"
             variants={itemVariants}
-            animate={{ y: [0, -5, 0] }} // Direct animation instead of variants
+            animate={{ y: [0, -5, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            <div className="w-48 h-48 p-2 mx-auto mb-8 rounded-full shadow-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 p-1.5 sm:p-2 mx-auto mb-6 sm:mb-8 rounded-full shadow-2xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">
               <div className="w-full h-full overflow-hidden rounded-full shadow-inner">
                 <img
                   src={personalInfo.profileImage}
@@ -414,15 +416,15 @@ function App() {
                   }}
                 />
                 <div className="items-center justify-center hidden w-full h-full bg-gradient-to-br from-slate-900 to-gray-800">
-                  <User className="w-24 h-24 text-white" />
+                  <User className="w-16 h-16 text-white sm:w-20 sm:h-20 md:w-24 md:h-24" />
                 </div>
               </div>
             </div>
           </motion.div>
 
-          {/* Name with Gradient Text */}
+          {/* Name with Gradient Text - Responsive typography */}
           <motion.h1
-            className="mb-6 text-5xl font-bold text-white md:text-8xl"
+            className="mb-4 text-3xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl"
             variants={itemVariants}
           >
             <span className="text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text">
@@ -430,36 +432,36 @@ function App() {
             </span>
           </motion.h1>
 
-          {/* Title with Typewriter Effect */}
+          {/* Title with Typewriter Effect - Responsive sizing */}
           <motion.h2
-            className="mb-8 text-2xl font-light text-blue-400 md:text-4xl"
+            className="mb-6 text-lg font-light text-blue-400 sm:mb-8 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
             variants={itemVariants}
           >
             {personalInfo.title}
           </motion.h2>
 
-          {/* Description */}
+          {/* Description - Responsive typography and spacing */}
           <motion.p
-            className="max-w-4xl mx-auto mb-12 text-lg leading-relaxed text-gray-300 md:text-xl"
+            className="max-w-2xl px-4 mx-auto mb-8 text-sm leading-relaxed text-gray-300 sm:max-w-3xl lg:max-w-4xl sm:mb-12 sm:text-base md:text-lg lg:text-xl sm:px-0"
             variants={itemVariants}
           >
             {personalInfo.summary}
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* CTA Buttons - Improved mobile layout */}
           <motion.div
-            className="flex flex-col items-center justify-center gap-6 sm:flex-row"
+            className="flex flex-col items-center justify-center gap-4 px-4 sm:gap-6 sm:px-0 sm:flex-row"
             variants={itemVariants}
           >
             <motion.button
               onClick={() => scrollToSection('projects')}
-              className="relative px-8 py-4 overflow-hidden font-semibold text-white rounded-full shadow-2xl group bg-gradient-to-r from-blue-600 to-purple-600"
+              className="relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 overflow-hidden font-semibold text-white rounded-full shadow-2xl group bg-gradient-to-r from-blue-600 to-purple-600 min-h-[48px] flex items-center justify-center"
               whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(59, 130, 246, 0.3)" }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10 flex items-center space-x-2">
-                <span>Explore My Work</span>
-                <ExternalLink className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <span className="text-sm sm:text-base">Explore My Work</span>
+                <ExternalLink className="w-4 h-4 transition-transform sm:w-5 sm:h-5 group-hover:translate-x-1" />
               </span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600"
@@ -471,13 +473,13 @@ function App() {
 
             <motion.button
               onClick={handleDownloadCV}
-              className="relative px-8 py-4 overflow-hidden font-semibold text-white rounded-full shadow-2xl group bg-gradient-to-r from-green-600 to-emerald-600"
+              className="relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 overflow-hidden font-semibold text-white rounded-full shadow-2xl group bg-gradient-to-r from-green-600 to-emerald-600 min-h-[48px] flex items-center justify-center"
               whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(34, 197, 94, 0.3)" }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10 flex items-center space-x-2">
-                <ExternalLink className="w-5 h-5 transition-transform group-hover:scale-110" />
-                <span>View CV</span>
+                <ExternalLink className="w-4 h-4 transition-transform sm:w-5 sm:h-5 group-hover:scale-110" />
+                <span className="text-sm sm:text-base">View CV</span>
               </span>
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-emerald-600 to-teal-600"
@@ -489,73 +491,74 @@ function App() {
 
             <motion.button
               onClick={() => scrollToSection('contact')}
-              className="relative px-8 py-4 font-semibold text-blue-400 transition-all border-2 border-blue-500 rounded-full hover:bg-blue-500/10 backdrop-blur-sm group"
+              className="relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 font-semibold text-blue-400 transition-all border-2 border-blue-500 rounded-full hover:bg-blue-500/10 backdrop-blur-sm group min-h-[48px] flex items-center justify-center"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="flex items-center space-x-2">
-                <span>Get In Touch</span>
-                <Send className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                <span className="text-sm sm:text-base">Get In Touch</span>
+                <Send className="w-4 h-4 transition-transform sm:w-5 sm:h-5 group-hover:translate-x-1" />
               </span>
             </motion.button>
           </motion.div>
         </motion.div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - Hide on small screens */}
         <motion.div
-          className="absolute transform -translate-x-1/2 bottom-10 left-1/2"
+          className="absolute hidden transform -translate-x-1/2 bottom-6 sm:bottom-10 left-1/2 sm:block"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-8 h-8 text-white/60" />
+          <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-white/60" />
         </motion.div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="relative px-4 py-24">
+      <section id="about" className="relative px-3 py-16 sm:px-4 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            className="mb-20 text-center"
+            className="mb-12 text-center sm:mb-16 lg:mb-20"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-6 text-5xl font-bold text-white md:text-6xl">About Me</h2>
+            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">About Me</h2>
             <motion.div
-              className="w-32 h-1 mx-auto bg-gradient-to-r from-blue-500 to-purple-500"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-blue-500 to-purple-500"
               initial={{ width: 0 }}
-              whileInView={{ width: "8rem" }}
+              whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.5 }}
+              style={{ width: "5rem" }}
             />
           </motion.div>
 
           <div className="max-w-4xl mx-auto">
             <motion.div
-              className="p-8 border shadow-2xl bg-white/5 backdrop-blur-2xl rounded-3xl border-white/10"
+              className="p-4 border shadow-2xl sm:p-6 lg:p-8 bg-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-white/10"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(0, 0, 0, 0.2)" }}
             >
-              <div className="flex items-center mb-6">
+              <div className="flex flex-col items-start mb-6 sm:flex-row sm:items-center">
                 <motion.div
-                  className="flex items-center justify-center w-16 h-16 mr-6 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"
+                  className="flex items-center justify-center w-12 h-12 mb-4 rounded-full sm:w-16 sm:h-16 sm:mb-0 sm:mr-6 bg-gradient-to-r from-blue-500 to-purple-500"
                   whileHover={{ rotate: 360, scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <User className="w-8 h-8 text-white" />
+                  <User className="w-6 h-6 text-white sm:w-8 sm:h-8" />
                 </motion.div>
-                <h3 className="text-3xl font-bold text-white">My Journey</h3>
+                <h3 className="text-xl font-bold text-white sm:text-2xl lg:text-3xl">My Journey</h3>
               </div>
 
-              <p className="mb-8 text-lg leading-relaxed text-gray-300">
+              <p className="mb-6 text-sm leading-relaxed text-gray-300 sm:mb-8 sm:text-base lg:text-lg">
                 {personalInfo.summary}
               </p>
 
-              <div className="grid gap-6 md:grid-cols-2">
+              <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
                 {[
                   { icon: MapPin, label: "Location", value: personalInfo.location, color: "text-blue-400" },
                   { icon: Mail, label: "Email", value: personalInfo.email, color: "text-purple-400" },
@@ -564,17 +567,17 @@ function App() {
                 ].map(({ icon: Icon, label, value, color }, index) => (
                   <motion.div
                     key={label}
-                    className="flex items-center p-4 space-x-3 transition-all rounded-xl bg-white/5 hover:bg-white/10"
+                    className="flex items-center p-3 space-x-3 transition-all rounded-lg sm:p-4 sm:rounded-xl bg-white/5 hover:bg-white/10"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: index * 0.2 }}
                     whileHover={{ scale: 1.02 }}
                   >
-                    <Icon className={`w-6 h-6 ${color}`} />
-                    <div>
-                      <p className="text-sm text-gray-400">{label}</p>
-                      <p className="font-medium text-white">{value}</p>
+                    <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${color}`} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-gray-400 sm:text-sm">{label}</p>
+                      <p className="text-sm font-medium text-white truncate sm:text-base">{value}</p>
                     </div>
                   </motion.div>
                 ))}
@@ -585,22 +588,23 @@ function App() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="relative px-4 py-24 bg-black/20">
+      <section id="experience" className="relative px-3 py-16 sm:px-4 sm:py-20 lg:py-24 bg-black/20">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            className="mb-20 text-center"
+            className="mb-12 text-center sm:mb-16 lg:mb-20"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-6 text-5xl font-bold text-white md:text-6xl">Experience</h2>
+            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Experience</h2>
             <motion.div
-              className="w-32 h-1 mx-auto bg-gradient-to-r from-purple-500 to-pink-500"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-purple-500 to-pink-500"
               initial={{ width: 0 }}
-              whileInView={{ width: "8rem" }}
+              whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.5 }}
+              style={{ width: "5rem" }}
             />
           </motion.div>
 
@@ -608,7 +612,7 @@ function App() {
             {experience.map((exp, index) => (
               <motion.div
                 key={index}
-                className="relative p-8 mb-8 overflow-hidden border shadow-2xl bg-white/5 backdrop-blur-2xl rounded-3xl border-white/10"
+                className="relative p-4 mb-6 overflow-hidden border shadow-2xl sm:p-6 lg:p-8 sm:mb-8 bg-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-white/10"
                 initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -617,15 +621,15 @@ function App() {
               >
                 {/* Current role highlight */}
                 {exp.isCurrentRole && (
-                  <div className="absolute top-0 right-0 px-4 py-2 text-sm font-semibold text-white bg-gradient-to-r from-green-500 to-emerald-500 rounded-bl-2xl rounded-tr-3xl">
+                  <div className="absolute top-0 right-0 px-3 py-1 text-xs font-semibold text-white sm:px-4 sm:py-2 sm:text-sm bg-gradient-to-r from-green-500 to-emerald-500 rounded-bl-xl sm:rounded-bl-2xl rounded-tr-2xl sm:rounded-tr-3xl">
                     Current Role
                   </div>
                 )}
 
-                <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center space-x-4">
+                <div className="flex flex-col mb-4 sm:flex-row sm:items-start sm:justify-between sm:mb-6">
+                  <div className="flex items-start mb-4 space-x-3 sm:space-x-4 sm:mb-0">
                     <motion.div
-                      className={`w-16 h-16 rounded-full ${exp.isCurrentRole
+                      className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex-shrink-0 ${exp.isCurrentRole
                         ? 'bg-gradient-to-r from-green-500 to-emerald-500'
                         : exp.type === 'education'
                           ? 'bg-gradient-to-r from-blue-500 to-indigo-500'
@@ -635,23 +639,23 @@ function App() {
                       transition={{ duration: 0.6 }}
                     >
                       {exp.type === 'education' ? (
-                        <GraduationCap className="w-8 h-8 text-white" />
+                        <GraduationCap className="w-6 h-6 text-white sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
                       ) : (
-                        <Briefcase className="w-8 h-8 text-white" />
+                        <Briefcase className="w-6 h-6 text-white sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
                       )}
                     </motion.div>
-                    <div>
-                      <h3 className="text-2xl font-bold text-white">{exp.position}</h3>
-                      <p className={`${exp.isCurrentRole
+                    <div className="flex-1 min-w-0">
+                      <h3 className="mb-1 text-lg font-bold leading-tight text-white sm:text-xl lg:text-2xl">{exp.position}</h3>
+                      <p className={`text-sm sm:text-base font-semibold ${exp.isCurrentRole
                         ? 'text-green-400'
                         : exp.type === 'education'
                           ? 'text-blue-400'
                           : 'text-purple-400'
-                        } font-semibold`}>{exp.company}</p>
+                        }`}>{exp.company}</p>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <span className={`text-sm px-3 py-1 rounded-full ${exp.isCurrentRole
+                  <div className="flex justify-end sm:justify-start">
+                    <span className={`text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full whitespace-nowrap ${exp.isCurrentRole
                       ? 'bg-green-500/20 text-green-300'
                       : exp.type === 'education'
                         ? 'bg-blue-500/20 text-blue-300'
@@ -672,13 +676,13 @@ function App() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: (index * 0.2) + (respIndex * 0.1) }}
                     >
-                      <div className={`w-2 h-2 ${exp.isCurrentRole
+                      <div className={`w-2 h-2 flex-shrink-0 ${exp.isCurrentRole
                         ? 'bg-green-400'
                         : exp.type === 'education'
                           ? 'bg-blue-400'
                           : 'bg-purple-400'
-                        } rounded-full mt-2 flex-shrink-0`} />
-                      <p className="leading-relaxed text-gray-300">{resp}</p>
+                        } rounded-full mt-2`} />
+                      <p className="text-sm leading-relaxed text-gray-300 sm:text-base">{resp}</p>
                     </motion.div>
                   ))}
                 </div>
@@ -689,37 +693,38 @@ function App() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="px-4 py-24">
+      <section id="projects" className="px-3 py-16 sm:px-4 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            className="mb-20 text-center"
+            className="mb-12 text-center sm:mb-16 lg:mb-20"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-6 text-5xl font-bold text-white md:text-6xl">Featured Projects</h2>
-            <p className="mb-6 text-xl text-gray-300">Showcasing my latest work and innovations</p>
+            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Featured Projects</h2>
+            <p className="px-4 mb-4 text-base text-gray-300 sm:mb-6 sm:text-lg lg:text-xl sm:px-0">Showcasing my latest work and innovations</p>
             <motion.div
-              className="w-32 h-1 mx-auto bg-gradient-to-r from-blue-500 to-teal-500"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-blue-500 to-teal-500"
               initial={{ width: 0 }}
-              whileInView={{ width: "8rem" }}
+              whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.5 }}
+              style={{ width: "5rem" }}
             />
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 lg:gap-8 sm:grid-cols-2 xl:grid-cols-3">
             {projects.map((project, index) => (
               <motion.div
                 key={index}
-                className="relative p-6 overflow-hidden transition-all border shadow-2xl group bg-white/5 backdrop-blur-2xl rounded-3xl border-white/10 hover:bg-white/10"
+                className="relative p-4 overflow-hidden transition-all border shadow-2xl sm:p-5 lg:p-6 group bg-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-white/10 hover:bg-white/10"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{
-                  y: -20,
+                  y: -10,
                   scale: 1.02,
                   boxShadow: "0 25px 50px rgba(0, 0, 0, 0.3)"
                 }}
@@ -729,7 +734,7 @@ function App() {
 
                 {/* Category badge */}
                 <motion.div
-                  className="absolute px-3 py-1 text-xs text-gray-300 rounded-full top-4 right-4 bg-white/10 backdrop-blur-lg"
+                  className="absolute px-2 py-1 text-xs text-gray-300 rounded-full sm:px-3 top-3 sm:top-4 right-3 sm:right-4 bg-white/10 backdrop-blur-lg"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
@@ -740,38 +745,39 @@ function App() {
 
                 {/* Project icon */}
                 <motion.div
-                  className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${project.gradient} mb-6 flex items-center justify-center`}
+                  className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-xl sm:rounded-2xl bg-gradient-to-br ${project.gradient} mb-4 sm:mb-6 flex items-center justify-center`}
                   whileHover={{ rotate: 360, scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                 >
-                  <Code className="w-8 h-8 text-white" />
+                  <Code className="w-6 h-6 text-white sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
                 </motion.div>
 
-                <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-xl font-bold text-white transition-colors group-hover:text-blue-400">
+                <div className="flex items-start justify-between mb-3 sm:mb-4">
+                  <h3 className="pr-2 text-lg font-bold leading-tight text-white transition-colors sm:text-xl group-hover:text-blue-400">
                     {project.title}
                   </h3>
                   <motion.a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 text-blue-400 transition-colors border rounded-full hover:text-blue-300 bg-blue-500/20 hover:bg-blue-500/30 border-blue-500/30 hover:border-blue-400/50"
+                    className="flex-shrink-0 p-2 text-blue-400 transition-colors border rounded-full sm:p-3 hover:text-blue-300 bg-blue-500/20 hover:bg-blue-500/30 border-blue-500/30 hover:border-blue-400/50"
                     whileHover={{ scale: 1.1, rotate: 15 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={(e) => {
                       e.stopPropagation();
                       window.open(project.link, '_blank', 'noopener,noreferrer');
                     }}
+                    aria-label={`View ${project.title} live project`}
                   >
-                    <ExternalLink className="w-5 h-5" />
+                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
                   </motion.a>
                 </div>
 
-                <p className="mb-4 text-sm font-medium text-blue-400">
+                <p className="mb-3 text-xs font-medium leading-relaxed text-blue-400 sm:mb-4 sm:text-sm">
                   {project.tech}
                 </p>
 
-                <p className="mb-6 text-sm leading-relaxed text-gray-300 line-clamp-4">
+                <p className="mb-4 text-xs leading-relaxed text-gray-300 sm:mb-6 sm:text-sm line-clamp-4">
                   {project.description}
                 </p>
 
@@ -779,17 +785,17 @@ function App() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-full px-4 py-3 space-x-2 text-sm font-semibold text-white transition-all border rounded-lg cursor-pointer bg-blue-600/80 hover:bg-blue-600 border-blue-500/50 hover:border-blue-400"
+                  className="flex items-center justify-center w-full px-3 sm:px-4 py-2.5 sm:py-3 space-x-2 text-xs sm:text-sm font-semibold text-white transition-all border rounded-lg cursor-pointer bg-blue-600/80 hover:bg-blue-600 border-blue-500/50 hover:border-blue-400 min-h-[40px] sm:min-h-[44px]"
                   whileHover={{ scale: 1.02, x: 0 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.3 }}
                 >
                   <span>View Live Project</span>
                   <motion.div
-                    animate={{ x: [0, 5, 0] }}
+                    animate={{ x: [0, 3, 0] }}
                     transition={{ duration: 1, repeat: Infinity }}
                   >
-                    <ExternalLink className="w-4 h-4" />
+                    <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4" />
                   </motion.div>
                 </motion.a>
               </motion.div>
@@ -798,7 +804,7 @@ function App() {
 
           {/* More Projects Button */}
           <motion.div
-            className="flex justify-center mt-16"
+            className="flex justify-center mt-12 sm:mt-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -808,7 +814,7 @@ function App() {
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative px-12 py-5 overflow-hidden text-lg font-bold text-white border-2 border-transparent rounded-full shadow-2xl group bg-gradient-to-r from-indigo-600 to-purple-600 hover:border-purple-400/50"
+              className="relative px-8 py-4 overflow-hidden text-base font-bold text-white border-2 border-transparent rounded-full shadow-2xl sm:px-12 sm:py-5 sm:text-lg group bg-gradient-to-r from-indigo-600 to-purple-600 hover:border-purple-400/50"
               whileHover={{
                 scale: 1.05,
                 boxShadow: "0 25px 50px rgba(99, 102, 241, 0.4)",
@@ -818,13 +824,13 @@ function App() {
               transition={{ duration: 0.3 }}
             >
               <span className="relative z-10 flex items-center space-x-3">
-                <Github className="w-6 h-6 transition-transform duration-300 group-hover:rotate-12" />
+                <Github className="w-5 h-5 transition-transform duration-300 sm:w-6 sm:h-6 group-hover:rotate-12" />
                 <span>More Projects</span>
                 <motion.div
-                  animate={{ x: [0, 8, 0] }}
+                  animate={{ x: [0, 6, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
                 >
-                  <ExternalLink className="w-5 h-5" />
+                  <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.div>
               </span>
 
@@ -858,27 +864,28 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="px-4 py-24 bg-black/20">
+      <section id="skills" className="px-3 py-16 sm:px-4 sm:py-20 lg:py-24 bg-black/20">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            className="mb-20 text-center"
+            className="mb-12 text-center sm:mb-16 lg:mb-20"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-6 text-5xl font-bold text-white md:text-6xl">Technical Skills</h2>
-            <p className="mb-6 text-xl text-gray-300">Technologies and tools I work with</p>
+            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Technical Skills</h2>
+            <p className="px-4 mb-4 text-base text-gray-300 sm:mb-6 sm:text-lg lg:text-xl sm:px-0">Technologies and tools I work with</p>
             <motion.div
-              className="w-32 h-1 mx-auto bg-gradient-to-r from-green-500 to-blue-500"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-green-500 to-blue-500"
               initial={{ width: 0 }}
-              whileInView={{ width: "8rem" }}
+              whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.5 }}
+              style={{ width: "5rem" }}
             />
           </motion.div>
 
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-4 sm:gap-6 lg:gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {Object.entries(skills).map(([category, skillList], categoryIndex) => {
               const categoryIcons = {
                 "Frontend": Code,
@@ -902,25 +909,25 @@ function App() {
               return (
                 <motion.div
                   key={category}
-                  className="p-8 transition-all border shadow-2xl bg-white/5 backdrop-blur-2xl rounded-3xl border-white/10 hover:bg-white/10"
+                  className="p-4 transition-all border shadow-2xl sm:p-6 lg:p-8 bg-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-white/10 hover:bg-white/10"
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
                   whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(0, 0, 0, 0.2)" }}
                 >
-                  <div className="flex items-center mb-8">
+                  <div className="flex items-center mb-6 sm:mb-8">
                     <motion.div
-                      className={`bg-gradient-to-r ${gradient} p-4 rounded-2xl mr-4`}
+                      className={`bg-gradient-to-r ${gradient} p-3 sm:p-4 rounded-xl sm:rounded-2xl mr-3 sm:mr-4 flex-shrink-0`}
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.6 }}
                     >
-                      <Icon className="w-8 h-8 text-white" />
+                      <Icon className="w-6 h-6 text-white sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
                     </motion.div>
-                    <h3 className="text-2xl font-bold text-white">{category}</h3>
+                    <h3 className="text-lg font-bold text-white sm:text-xl lg:text-2xl">{category}</h3>
                   </div>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3 sm:space-y-4">
                     {skillList.map((skill, skillIndex) => (
                       <motion.div
                         key={skill}
@@ -933,15 +940,15 @@ function App() {
                           delay: (categoryIndex * 0.2) + (skillIndex * 0.1)
                         }}
                       >
-                        <div className="flex items-center justify-between p-4 transition-all rounded-xl bg-white/5 hover:bg-white/10 group-hover:scale-105">
-                          <span className="font-medium text-gray-300 transition-colors group-hover:text-white">
+                        <div className="flex items-center justify-between p-3 transition-all rounded-lg sm:p-4 sm:rounded-xl bg-white/5 hover:bg-white/10 group-hover:scale-105">
+                          <span className="text-sm font-medium text-gray-300 transition-colors group-hover:text-white sm:text-base">
                             {skill}
                           </span>
                           <div className="flex space-x-1">
                             {[...Array(4)].map((_, i) => (
                               <motion.div
                                 key={i}
-                                className={`w-2 h-2 rounded-full bg-gradient-to-r ${gradient}`}
+                                className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-r ${gradient}`}
                                 initial={{ scale: 0 }}
                                 whileInView={{ scale: 1 }}
                                 viewport={{ once: true }}
@@ -965,39 +972,40 @@ function App() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="px-4 py-24">
+      <section id="contact" className="px-3 py-16 sm:px-4 sm:py-20 lg:py-24">
         <div className="mx-auto max-w-7xl">
           <motion.div
-            className="mb-20 text-center"
+            className="mb-12 text-center sm:mb-16 lg:mb-20"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-6 text-5xl font-bold text-white md:text-6xl">Let's Work Together</h2>
-            <p className="mb-6 text-xl text-gray-300">Ready to bring your ideas to life? Let's discuss your next project.</p>
+            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Let's Work Together</h2>
+            <p className="px-4 mb-4 text-base text-gray-300 sm:mb-6 sm:text-lg lg:text-xl sm:px-0">Ready to bring your ideas to life? Let's discuss your next project.</p>
             <motion.div
-              className="w-32 h-1 mx-auto bg-gradient-to-r from-pink-500 to-purple-500"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-pink-500 to-purple-500"
               initial={{ width: 0 }}
-              whileInView={{ width: "8rem" }}
+              whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.5 }}
+              style={{ width: "5rem" }}
             />
           </motion.div>
 
-          <div className="grid items-start max-w-6xl gap-12 mx-auto lg:grid-cols-2">
+          <div className="grid items-start max-w-6xl gap-6 mx-auto sm:gap-8 lg:gap-12 lg:grid-cols-2">
             {/* Contact Info */}
             <motion.div
-              className="p-8 border shadow-2xl bg-white/5 backdrop-blur-2xl rounded-3xl border-white/10"
+              className="p-4 border shadow-2xl sm:p-6 lg:p-8 bg-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-white/10"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(0, 0, 0, 0.2)" }}
             >
-              <h3 className="mb-8 text-3xl font-bold text-white">Get In Touch</h3>
+              <h3 className="mb-6 text-2xl font-bold text-white sm:mb-8 sm:text-3xl">Get In Touch</h3>
 
-              <div className="mb-12 space-y-6">
+              <div className="mb-8 space-y-4 sm:mb-12 sm:space-y-6">
                 {[
                   { icon: Mail, label: "Email", value: personalInfo.email, color: "text-blue-400" },
                   { icon: Phone, label: "Phone", value: personalInfo.phone, color: "text-green-400" },
@@ -1005,7 +1013,7 @@ function App() {
                 ].map(({ icon: Icon, label, value, color }, index) => (
                   <motion.div
                     key={label}
-                    className="flex items-center p-4 space-x-4 transition-all cursor-pointer group rounded-xl hover:bg-white/5"
+                    className="flex items-center p-3 space-x-3 transition-all rounded-lg cursor-pointer sm:p-4 sm:space-x-4 group sm:rounded-xl hover:bg-white/5"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -1013,23 +1021,23 @@ function App() {
                     whileHover={{ scale: 1.05, x: 10 }}
                   >
                     <motion.div
-                      className="p-4 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"
+                      className="flex-shrink-0 p-3 rounded-full sm:p-4 bg-gradient-to-r from-blue-500 to-purple-500"
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.6 }}
                     >
-                      <Icon className="w-6 h-6 text-white" />
+                      <Icon className="w-5 h-5 text-white sm:w-6 sm:h-6" />
                     </motion.div>
-                    <div>
-                      <p className="text-sm text-gray-400">{label}</p>
-                      <p className={`font-medium ${color}`}>{value}</p>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-xs text-gray-400 sm:text-sm">{label}</p>
+                      <p className={`font-medium text-sm sm:text-base ${color} truncate`}>{value}</p>
                     </div>
                   </motion.div>
                 ))}
               </div>
 
-              <div className="pt-8 border-t border-white/10">
-                <h4 className="mb-6 text-xl font-semibold text-white">Connect With Me</h4>
-                <div className="flex space-x-4">
+              <div className="pt-6 border-t sm:pt-8 border-white/10">
+                <h4 className="mb-4 text-lg font-semibold text-white sm:mb-6 sm:text-xl">Connect With Me</h4>
+                <div className="flex space-x-3 sm:space-x-4">
                   {[
                     { href: personalInfo.github, icon: Github, label: "GitHub", color: "hover:bg-gray-600" },
                     { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn", color: "hover:bg-blue-600" },
@@ -1040,7 +1048,7 @@ function App() {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`bg-white/10 p-4 rounded-full transition-all group relative ${color}`}
+                      className={`bg-white/10 p-3 sm:p-4 rounded-full transition-all group relative ${color} min-w-[48px] min-h-[48px] flex items-center justify-center`}
                       initial={{ scale: 0, rotate: -180 }}
                       whileInView={{ scale: 1, rotate: 0 }}
                       viewport={{ once: true }}
@@ -1048,9 +1056,9 @@ function App() {
                       whileHover={{ scale: 1.2, y: -5 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <Icon className="w-6 h-6 text-gray-400 transition-colors group-hover:text-white" />
+                      <Icon className="w-5 h-5 text-gray-400 transition-colors sm:w-6 sm:h-6 group-hover:text-white" />
                       <motion.div
-                        className="absolute px-3 py-1 text-sm text-white transition-opacity transform -translate-x-1/2 bg-gray-900 rounded-lg opacity-0 -top-12 left-1/2 group-hover:opacity-100 whitespace-nowrap"
+                        className="absolute px-2 py-1 text-xs text-white transition-opacity transform -translate-x-1/2 bg-gray-900 rounded-lg opacity-0 sm:px-3 sm:text-sm -top-12 left-1/2 group-hover:opacity-100 whitespace-nowrap"
                         initial={{ opacity: 0, y: 10 }}
                         whileHover={{ opacity: 1, y: 0 }}
                       >
@@ -1064,18 +1072,18 @@ function App() {
 
             {/* Contact Form */}
             <motion.div
-              className="p-8 border shadow-2xl bg-white/5 backdrop-blur-2xl rounded-3xl border-white/10"
+              className="p-4 border shadow-2xl sm:p-6 lg:p-8 bg-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-white/10"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
               whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(0, 0, 0, 0.2)" }}
             >
-              <h3 className="mb-8 text-3xl font-bold text-white">Send Message</h3>
+              <h3 className="mb-6 text-2xl font-bold text-white sm:mb-8 sm:text-3xl">Send Message</h3>
 
               {submitStatus === 'success' && (
                 <motion.div
-                  className="p-4 mb-6 text-green-300 border bg-green-500/20 border-green-500/30 rounded-2xl"
+                  className="p-3 mb-4 text-sm text-green-300 border sm:p-4 sm:mb-6 sm:text-base bg-green-500/20 border-green-500/30 rounded-xl sm:rounded-2xl"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
@@ -1085,7 +1093,7 @@ function App() {
 
               {submitStatus === 'error' && (
                 <motion.div
-                  className="p-4 mb-6 text-red-300 border bg-red-500/20 border-red-500/30 rounded-2xl"
+                  className="p-3 mb-4 text-sm text-red-300 border sm:p-4 sm:mb-6 sm:text-base bg-red-500/20 border-red-500/30 rounded-xl sm:rounded-2xl"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
@@ -1093,8 +1101,8 @@ function App() {
                 </motion.div>
               )}
 
-              <form className="space-y-6" onSubmit={handleFormSubmit}>
-                <div className="grid gap-6 md:grid-cols-2">
+              <form className="space-y-4 sm:space-y-6" onSubmit={handleFormSubmit}>
+                <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
                   {[
                     { field: 'Name', name: 'name', type: 'text' },
                     { field: 'Email', name: 'email', type: 'email' }
@@ -1106,7 +1114,7 @@ function App() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                     >
-                      <label className="block mb-2 font-medium text-white">{field}</label>
+                      <label className="block mb-2 text-sm font-medium text-white sm:text-base">{field}</label>
                       <motion.input
                         name={name}
                         type={type}
@@ -1114,7 +1122,7 @@ function App() {
                         onChange={handleInputChange}
                         placeholder={`Your ${field.toLowerCase()}`}
                         required
-                        className="w-full px-6 py-4 text-white placeholder-gray-400 transition-all border bg-white/5 border-white/20 rounded-2xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                        className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base text-white placeholder-gray-400 transition-all border bg-white/5 border-white/20 rounded-xl sm:rounded-2xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 min-h-[44px]"
                         whileFocus={{ scale: 1.02 }}
                         disabled={isSubmitting}
                       />
@@ -1128,7 +1136,7 @@ function App() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <label className="block mb-2 font-medium text-white">Subject</label>
+                  <label className="block mb-2 text-sm font-medium text-white sm:text-base">Subject</label>
                   <motion.input
                     name="subject"
                     type="text"
@@ -1136,7 +1144,7 @@ function App() {
                     onChange={handleInputChange}
                     placeholder="Project discussion"
                     required
-                    className="w-full px-6 py-4 text-white placeholder-gray-400 transition-all border bg-white/5 border-white/20 rounded-2xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base text-white placeholder-gray-400 transition-all border bg-white/5 border-white/20 rounded-xl sm:rounded-2xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 min-h-[44px]"
                     whileFocus={{ scale: 1.02 }}
                     disabled={isSubmitting}
                   />
@@ -1148,15 +1156,15 @@ function App() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <label className="block mb-2 font-medium text-white">Message</label>
+                  <label className="block mb-2 text-sm font-medium text-white sm:text-base">Message</label>
                   <motion.textarea
                     name="message"
-                    rows={5}
+                    rows={4}
                     value={formData.message}
                     onChange={handleInputChange}
                     placeholder="Tell me about your project..."
                     required
-                    className="w-full px-6 py-4 text-white placeholder-gray-400 transition-all border resize-none bg-white/5 border-white/20 rounded-2xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20"
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base text-white placeholder-gray-400 transition-all border resize-none bg-white/5 border-white/20 rounded-xl sm:rounded-2xl focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 min-h-[100px]"
                     whileFocus={{ scale: 1.02 }}
                     disabled={isSubmitting}
                   ></motion.textarea>
@@ -1165,7 +1173,7 @@ function App() {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="relative flex items-center justify-center w-full py-4 space-x-2 overflow-hidden font-semibold text-white transition-all shadow-xl bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl hover:shadow-2xl group disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="relative flex items-center justify-center w-full py-3 sm:py-4 space-x-2 overflow-hidden font-semibold text-white transition-all shadow-xl bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl sm:rounded-2xl hover:shadow-2xl group disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px]"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -1181,12 +1189,12 @@ function App() {
                           animate={{ rotate: 360 }}
                           transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
                         />
-                        <span>Sending...</span>
+                        <span className="text-sm sm:text-base">Sending...</span>
                       </>
                     ) : (
                       <>
-                        <Send className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                        <span>Send Message</span>
+                        <Send className="w-4 h-4 transition-transform sm:w-5 sm:h-5 group-hover:translate-x-1" />
+                        <span className="text-sm sm:text-base">Send Message</span>
                       </>
                     )}
                   </span>
@@ -1207,7 +1215,7 @@ function App() {
 
       {/* Footer */}
       <motion.footer
-        className="relative px-4 py-20 overflow-hidden border-t bg-gradient-to-b from-black/40 via-gray-900/80 to-black border-white/10"
+        className="relative px-3 py-12 overflow-hidden border-t sm:px-4 sm:py-16 lg:py-20 bg-gradient-to-b from-black/40 via-gray-900/80 to-black border-white/10"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -1231,41 +1239,41 @@ function App() {
 
         <div className="relative z-10 mx-auto max-w-7xl">
           {/* Main Footer Content */}
-          <div className="grid gap-12 mb-12 lg:grid-cols-4 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-8 mb-8 sm:gap-10 lg:gap-12 sm:mb-12 sm:grid-cols-2 lg:grid-cols-4">
             {/* Brand Section */}
             <motion.div
-              className="lg:col-span-2"
+              className="text-center sm:col-span-2 lg:col-span-2 sm:text-left"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
               <motion.h3
-                className="mb-4 text-4xl font-bold"
+                className="mb-3 text-2xl font-bold sm:mb-4 sm:text-3xl lg:text-4xl"
                 whileHover={{ scale: 1.05 }}
               >
                 <span className="text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text">
                   Ram Krishna Yadav
                 </span>
               </motion.h3>
-              <p className="mb-6 text-lg leading-relaxed text-gray-300">
+              <p className="max-w-lg mx-auto mb-4 text-sm leading-relaxed text-gray-300 sm:mb-6 sm:text-base lg:text-lg sm:mx-0">
                 Full Stack Engineer passionate about creating innovative web solutions.
                 Transforming ideas into exceptional digital experiences with modern technologies.
               </p>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 sm:items-start sm:justify-start">
                 <motion.div
-                  className="flex items-center space-x-2 text-gray-400"
+                  className="flex items-center space-x-2 text-sm text-gray-400 sm:text-base"
                   whileHover={{ scale: 1.05, color: "#ffffff" }}
                 >
-                  <MapPin className="w-5 h-5" />
+                  <MapPin className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
                   <span>Nepal</span>
                 </motion.div>
                 <motion.a
                   href={`mailto:${personalInfo.email}`}
-                  className="flex items-center space-x-2 text-gray-400 transition-colors hover:text-blue-400"
+                  className="flex items-center space-x-2 text-sm text-gray-400 transition-colors hover:text-blue-400 sm:text-base"
                   whileHover={{ scale: 1.05 }}
                 >
-                  <Mail className="w-5 h-5" />
+                  <Mail className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
                   <span>Available for hire</span>
                 </motion.a>
               </div>
