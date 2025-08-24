@@ -903,6 +903,67 @@ function App() {
                 "Tools": "from-yellow-500 to-orange-500"
               };
 
+              // Skill icons mapping with actual technology logos/symbols
+              const skillIcons = {
+                // Frontend
+                "React.js": "⚛️",
+                "Next.js": "▲",
+                "TypeScript": "TS",
+                "Tailwind CSS": "💨",
+                "Redux": "🔄",
+                "HTML5": "🌐",
+                "SEO Optimization": "�",
+                // Backend
+                "Node.js": "🟢",
+                "Express.js": "🚂",
+                "Python": "🐍",
+                "GraphQL": "◉",
+                "JWT": "🔐",
+                "RESTful API": "🔗",
+                // Database
+                "MongoDB": "🍃",
+                "PostgreSQL": "🐘",
+                "MySQL": "🐬",
+                // Deployment
+                "Vercel": "▲",
+                "Microsoft Azure": "☁️",
+                "VPS Hosting": "🖥️",
+                // Tools
+                "Git": "🌿",
+                "Figma": "🎨",
+                "WebSockets": "⚡"
+              };
+
+              const skillColors = {
+                // Frontend
+                "React.js": "from-cyan-400 to-blue-600",
+                "Next.js": "from-gray-900 to-black",
+                "TypeScript": "from-blue-600 to-blue-800",
+                "Tailwind CSS": "from-teal-400 to-cyan-600",
+                "Redux": "from-purple-600 to-purple-800",
+                "HTML5": "from-orange-500 to-red-600",
+                "SEO Optimization": "from-green-400 to-emerald-600",
+                // Backend
+                "Node.js": "from-green-500 to-green-700",
+                "Express.js": "from-gray-700 to-gray-900",
+                "Python": "from-yellow-400 to-blue-600",
+                "GraphQL": "from-pink-500 to-rose-600",
+                "JWT": "from-gray-600 to-gray-800",
+                "RESTful API": "from-indigo-500 to-purple-700",
+                // Database
+                "MongoDB": "from-green-500 to-green-800",
+                "PostgreSQL": "from-blue-700 to-indigo-900",
+                "MySQL": "from-orange-600 to-yellow-600",
+                // Deployment
+                "Vercel": "from-gray-900 to-black",
+                "Microsoft Azure": "from-blue-600 to-blue-900",
+                "VPS Hosting": "from-gray-600 to-gray-900",
+                // Tools
+                "Git": "from-orange-600 to-red-700",
+                "Figma": "from-purple-500 to-pink-600",
+                "WebSockets": "from-yellow-500 to-orange-600"
+              };
+
               const Icon = categoryIcons[category as keyof typeof categoryIcons] || Code;
               const gradient = categoryColors[category as keyof typeof categoryColors] || "from-gray-500 to-gray-600";
 
@@ -944,21 +1005,54 @@ function App() {
                           <span className="text-sm font-medium text-gray-300 transition-colors group-hover:text-white sm:text-base">
                             {skill}
                           </span>
-                          <div className="flex space-x-1">
-                            {[...Array(4)].map((_, i) => (
-                              <motion.div
-                                key={i}
-                                className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-gradient-to-r ${gradient}`}
-                                initial={{ scale: 0 }}
-                                whileInView={{ scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{
-                                  duration: 0.3,
-                                  delay: (categoryIndex * 0.2) + (skillIndex * 0.1) + (i * 0.05)
-                                }}
-                                whileHover={{ scale: 1.5 }}
-                              />
-                            ))}
+                          <div className="flex items-center space-x-2">
+                            {/* Technology icon/logo */}
+                            <motion.div
+                              className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-r ${skillColors[skill as keyof typeof skillColors] || gradient} flex items-center justify-center text-white font-bold shadow-lg border border-white/20`}
+                              initial={{ scale: 0, rotate: -180 }}
+                              whileInView={{ scale: 1, rotate: 0 }}
+                              viewport={{ once: true }}
+                              transition={{
+                                duration: 0.5,
+                                delay: (categoryIndex * 0.2) + (skillIndex * 0.1)
+                              }}
+                              whileHover={{
+                                scale: 1.3,
+                                rotate: 360,
+                                boxShadow: "0 12px 35px rgba(0, 0, 0, 0.4)",
+                                borderColor: "rgba(255, 255, 255, 0.4)"
+                              }}
+                              style={{
+                                boxShadow: "0 4px 15px rgba(0, 0, 0, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.1)"
+                              }}
+                            >
+                              <span className="text-lg sm:text-xl drop-shadow-sm">
+                                {skillIcons[skill as keyof typeof skillIcons] || (
+                                  skill === "TypeScript" ? "TS" :
+                                    skill === "Next.js" ? "▲" :
+                                      skill === "GraphQL" ? "◉" :
+                                        skill.charAt(0).toUpperCase()
+                                )}
+                              </span>
+                            </motion.div>
+
+                            {/* Skill level indicator */}
+                            <div className="flex flex-col space-y-1">
+                              {[...Array(4)].map((_, i) => (
+                                <motion.div
+                                  key={i}
+                                  className={`w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-gradient-to-r ${skillColors[skill as keyof typeof skillColors] || gradient}`}
+                                  initial={{ scale: 0, opacity: 0 }}
+                                  whileInView={{ scale: 1, opacity: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{
+                                    duration: 0.3,
+                                    delay: (categoryIndex * 0.2) + (skillIndex * 0.1) + (i * 0.05)
+                                  }}
+                                  whileHover={{ scale: 1.8, opacity: 1 }}
+                                />
+                              ))}
+                            </div>
                           </div>
                         </div>
                       </motion.div>
