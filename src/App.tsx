@@ -163,11 +163,23 @@ function App() {
   ];
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Close mobile menu first
     setMobileMenuOpen(false);
+
+    // Small delay to allow menu to close before scrolling
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const navHeight = 80; // Account for fixed navbar height
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 100);
   };
 
   const handleFormSubmit = async (e: React.FormEvent) => {
@@ -224,11 +236,21 @@ function App() {
       }
     };
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
     window.addEventListener('scroll', handleScroll);
+    window.addEventListener('keydown', handleKeyDown);
     handleScroll(); // Call once to set initial state
 
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems]);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [navItems, mobileMenuOpen]);
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -339,49 +361,65 @@ function App() {
         {/* Mobile Menu - Improved spacing and touch targets */}
         <AnimatePresence>
           {mobileMenuOpen && (
-            <motion.div
-              className="border-t md:hidden bg-gray-900/95 backdrop-blur-lg border-white/10"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="max-h-screen px-4 py-6 space-y-2 overflow-y-auto">
-                {navItems.map((item, index) => (
-                  <motion.button
-                    key={item.id}
-                    onClick={() => scrollToSection(item.id)}
-                    className="flex w-full px-6 py-4 text-left text-white transition-colors rounded-xl hover:bg-white/10 text-lg font-medium min-h-[56px] items-center"
-                    initial={{ x: -50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    {item.name}
-                  </motion.button>
-                ))}
-                <div className="flex justify-center pt-6 space-x-6">
-                  {[
-                    { href: personalInfo.github, icon: Github, label: "GitHub" },
-                    { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn" },
-                    { href: personalInfo.twitter, icon: Twitter, label: "Twitter" }
-                  ].map(({ href, icon: Icon, label }, index) => (
-                    <motion.a
-                      key={href}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-4 text-gray-400 transition-colors rounded-full bg-white/10 hover:text-white min-w-[56px] min-h-[56px] flex items-center justify-center"
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.3 + index * 0.1 }}
-                      aria-label={label}
+            <>
+              {/* Backdrop to close menu when clicking outside */}
+              <motion.div
+                className="fixed inset-0 z-40 bg-black/50 md:hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setMobileMenuOpen(false)}
+              />
+              <motion.div
+                className="relative z-50 border-t md:hidden bg-gray-900/95 backdrop-blur-lg border-white/10"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="max-h-screen px-4 py-6 space-y-2 overflow-y-auto">
+                  {navItems.map((item, index) => (
+                    <motion.button
+                      key={item.id}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('Mobile menu item clicked:', item.id); // Debug log
+                        scrollToSection(item.id);
+                      }}
+                      className="flex w-full px-6 py-4 text-left text-white transition-colors rounded-xl hover:bg-white/10 text-lg font-medium min-h-[56px] items-center cursor-pointer"
+                      initial={{ x: -50, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      type="button"
                     >
-                      <Icon className="w-6 h-6" />
-                    </motion.a>
+                      {item.name}
+                    </motion.button>
                   ))}
+                  <div className="flex justify-center pt-6 space-x-6">
+                    {[
+                      { href: personalInfo.github, icon: Github, label: "GitHub" },
+                      { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn" },
+                      { href: personalInfo.twitter, icon: Twitter, label: "Twitter" }
+                    ].map(({ href, icon: Icon, label }, index) => (
+                      <motion.a
+                        key={href}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="p-4 text-gray-400 transition-colors rounded-full bg-white/10 hover:text-white min-w-[56px] min-h-[56px] flex items-center justify-center"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ delay: 0.3 + index * 0.1 }}
+                        aria-label={label}
+                      >
+                        <Icon className="w-6 h-6" />
+                      </motion.a>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            </>
           )}
         </AnimatePresence>
       </motion.nav>
