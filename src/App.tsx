@@ -13,7 +13,7 @@ const personalInfo = {
   linkedin: "https://www.linkedin.com/in/ramkrishnaprofile/",
   twitter: "https://x.com/ramkrishnacode", // Add your Twitter profile
   portfolio: "https://ramkrishnacode.tech/",
-  profileImage: "./download.jpeg",
+  profileImage: "./pp.jpeg",
   summary: "Full Stack Engineer specializing in scalable web application development. Delivered production-ready applications with proven performance optimization and enhanced user experience. Proficient in modern JavaScript frameworks, RESTful APIs, cloud infrastructure (AWS, Azure), and deployment platforms (Vercel, BPS hosting). Experienced in end-to-end application lifecycle from development to production deployment."
 };
 
