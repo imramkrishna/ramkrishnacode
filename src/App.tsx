@@ -425,7 +425,7 @@ function App() {
       </motion.nav>
 
       {/* Hero Section */}
-      <section id="home" className="relative flex items-center justify-center min-h-screen px-3 pt-16 sm:pt-20 sm:px-4">
+      <section id="home" className="relative flex items-center justify-center min-h-screen px-3 pt-16 my-6 sm:pt-20 sm:px-4">
         <motion.div
           className="z-10 max-w-6xl mx-auto text-center"
           variants={containerVariants}
