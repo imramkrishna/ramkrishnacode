@@ -4,11 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#1A1A1A',
-        secondary: '#D4A373',
-        accent: '#E8D5C4',
-        textColor: '#F5F5F5',
-        cardBg: '#242424',
+        background: '#000000',
+        surface: '#111111',
+        primary: '#FFFFFF',
+        accent: '#0070F3',
+        textColor: '#EDEDED',
+        border: '#333333',
       },
     },
   },

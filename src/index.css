@@ -71,8 +71,8 @@
 
   body {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
-    background: #1A1A1A;
-    color: #F5F5F5;
+    background: #000000;
+    color: #EDEDED;
   }
 }
 
@@ -103,16 +103,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    background: #1A1A1A;
+    background: #000000;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: linear-gradient(to bottom, #D4A373, #E8D5C4);
+    background: linear-gradient(to bottom, #0070F3, #005BB5);
     border-radius: 4px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(to bottom, #E8D5C4, #D4A373);
+    background: linear-gradient(to bottom, #0086FF, #0070F3);
   }
 
   /* Smooth animations */
@@ -123,16 +123,16 @@
 
   /* Glow effects */
   .glow-blue {
-    box-shadow: 0 0 20px rgba(212, 163, 115, 0.3);
+    box-shadow: 0 0 20px rgba(0, 112, 243, 0.4);
   }
 
   .glow-teal {
-    box-shadow: 0 0 20px rgba(232, 213, 196, 0.3);
+    box-shadow: 0 0 20px rgba(0, 112, 243, 0.3);
   }
 
   /* Gradient text */
   .gradient-text {
-    background: linear-gradient(135deg, #D4A373, #E8D5C4);
+    background: linear-gradient(135deg, #FFFFFF, #0070F3);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -177,11 +177,11 @@
 
     0%,
     100% {
-      box-shadow: 0 0 5px rgba(212, 163, 115, 0.5);
+      box-shadow: 0 0 5px rgba(0, 112, 243, 0.5);
     }
 
     50% {
-      box-shadow: 0 0 20px rgba(212, 163, 115, 0.8), 0 0 30px rgba(232, 213, 196, 0.4);
+      box-shadow: 0 0 20px rgba(0, 112, 243, 0.8), 0 0 30px rgba(0, 112, 243, 0.4);
     }
   }
 
@@ -193,7 +193,7 @@
 /* Custom focus styles */
 input:focus,
 textarea:focus {
-  box-shadow: 0 0 0 3px rgba(212, 163, 115, 0.1);
+  box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.2);
 }
 
 /* Smooth page transitions */

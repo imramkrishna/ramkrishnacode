@@ -14,7 +14,7 @@ const personalInfo = {
   twitter: "https://x.com/ramkrishnacode", // Add your Twitter profile
   portfolio: "https://ramkrishnacode.tech/",
   profileImage: "./pp.jpeg",
-  summary: "Full Stack Engineer specializing in scalable web application development. Delivered production-ready applications with proven performance optimization and enhanced user experience. Proficient in modern JavaScript frameworks, RESTful APIs, cloud infrastructure (AWS, Azure), and deployment platforms (Vercel, BPS hosting). Experienced in end-to-end application lifecycle from development to production deployment."
+  summary: "Full Stack Engineer specializing in scalable web application development. Delivered production-ready applications with proven performance optimization and enhanced user experience. Proficient in modern JavaScript frameworks, RESTful APIs, cloud infrastructure (AWS, Azure), and deployment platforms (Vercel, VPS hosting). Experienced in end-to-end application lifecycle from development to production deployment."
 };
 
 // Resume Data
@@ -253,11 +253,11 @@ function App() {
   }, [navItems, mobileMenuOpen]);
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-primary">
+    <div className="relative min-h-screen overflow-x-hidden bg-background">
       {/* Simplified animated background for mobile performance - single element instead of multiple */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <motion.div
-          className="absolute w-full h-full rounded-full -top-1/2 -left-1/2 bg-gradient-to-r from-secondary/5 to-accent/5 blur-3xl"
+          className="absolute w-full h-full rounded-full -top-1/2 -left-1/2 bg-gradient-to-r from-accent/5 to-accent/10 blur-3xl"
           animate={{
             scale: [1, 1.02, 1] // Minimal animation
           }}
@@ -267,7 +267,7 @@ function App() {
 
       {/* Navigation */}
       <motion.nav
-        className="fixed top-0 z-50 w-full border-b bg-cardBg/80 backdrop-blur-xl border-secondary/20"
+        className="fixed top-0 z-50 w-full border-b bg-surface/80 backdrop-blur-xl border-border"
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: "spring", stiffness: 100, damping: 20 }}
@@ -276,7 +276,7 @@ function App() {
           <div className="flex items-center justify-between py-3 sm:py-4">
             {/* Logo - Responsive text size */}
             <motion.div
-              className="text-lg font-bold text-transparent sm:text-xl md:text-2xl bg-gradient-to-r from-secondary to-accent bg-clip-text"
+              className="text-lg font-bold text-transparent sm:text-xl md:text-2xl bg-gradient-to-r from-primary to-accent bg-clip-text"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -290,8 +290,8 @@ function App() {
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={`px-3 lg:px-4 py-2 rounded-full transition-all duration-300 relative text-sm lg:text-base ${activeSection === item.id
-                    ? 'text-secondary'
-                    : 'text-textColor hover:text-white'
+                    ? 'text-accent'
+                    : 'text-textColor hover:text-primary'
                     }`}
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
@@ -299,7 +299,7 @@ function App() {
                   {item.name}
                   {activeSection === item.id && (
                     <motion.div
-                      className="absolute inset-0 rounded-full bg-secondary/20"
+                      className="absolute inset-0 rounded-full bg-accent/20"
                       layoutId="activeSection"
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                     />
@@ -320,13 +320,13 @@ function App() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="relative p-2 transition-all rounded-full text-textColor lg:p-3 bg-cardBg hover:bg-secondary/20 hover:text-secondary group"
+                  className="relative p-2 transition-all border rounded-full text-textColor lg:p-3 bg-surface border-border hover:bg-accent/10 hover:text-accent group"
                   whileHover={{ scale: 1.1, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <Icon className="w-4 h-4 lg:w-5 lg:h-5" />
                   <motion.div
-                    className="absolute px-2 py-1 text-xs text-white transition-opacity transform -translate-x-1/2 rounded opacity-0 bg-cardBg -top-12 left-1/2 group-hover:opacity-100 whitespace-nowrap"
+                    className="absolute px-2 py-1 text-xs transition-opacity transform -translate-x-1/2 border rounded opacity-0 text-textColor bg-surface border-border -top-12 left-1/2 group-hover:opacity-100 whitespace-nowrap"
                     initial={{ opacity: 0, y: 10 }}
                     whileHover={{ opacity: 1, y: 0 }}
                   >
@@ -338,7 +338,7 @@ function App() {
 
             {/* Mobile Menu Button - Larger touch target */}
             <motion.button
-              className="p-3 text-textColor rounded-lg md:hidden bg-cardBg min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className="p-3 text-textColor rounded-lg md:hidden bg-surface border border-border min-w-[44px] min-h-[44px] flex items-center justify-center hover:text-accent"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
               aria-label="Toggle menu"
@@ -371,7 +371,7 @@ function App() {
                 onClick={() => setMobileMenuOpen(false)}
               />
               <motion.div
-                className="relative z-50 border-t md:hidden bg-cardBg/95 backdrop-blur-lg border-secondary/20"
+                className="relative z-50 border-t md:hidden bg-surface/95 backdrop-blur-lg border-border"
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
@@ -387,7 +387,7 @@ function App() {
                         console.log('Mobile menu item clicked:', item.id); // Debug log
                         scrollToSection(item.id);
                       }}
-                      className="flex w-full px-6 py-4 text-left text-textColor transition-colors rounded-xl hover:bg-secondary/20 text-lg font-medium min-h-[56px] items-center cursor-pointer"
+                      className="flex w-full px-6 py-4 text-left text-textColor transition-colors rounded-xl hover:bg-accent/10 hover:text-accent text-lg font-medium min-h-[56px] items-center cursor-pointer"
                       initial={{ x: -50, opacity: 0 }}
                       animate={{ x: 0, opacity: 1 }}
                       transition={{ delay: index * 0.1 }}
@@ -407,7 +407,7 @@ function App() {
                         href={href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-4 text-textColor transition-colors rounded-full bg-cardBg hover:bg-secondary/20 hover:text-secondary min-w-[56px] min-h-[56px] flex items-center justify-center"
+                        className="p-4 text-textColor transition-colors rounded-full bg-surface border border-border hover:bg-accent/10 hover:text-accent min-w-[56px] min-h-[56px] flex items-center justify-center"
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{ delay: 0.3 + index * 0.1 }}
@@ -439,7 +439,7 @@ function App() {
             animate={{ y: [0, -5, 0] }}
             transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           >
-            <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 p-1.5 sm:p-2 mx-auto mb-6 sm:mb-8 rounded-full shadow-2xl bg-gradient-to-r from-secondary via-accent to-secondary">
+            <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 p-1.5 sm:p-2 mx-auto mb-6 sm:mb-8 rounded-full shadow-2xl bg-gradient-to-r from-accent via-primary to-accent">
               <div className="w-full h-full overflow-hidden rounded-full shadow-inner">
                 <img
                   src={personalInfo.profileImage}
@@ -453,8 +453,8 @@ function App() {
                     if (fallback) fallback.style.display = 'flex';
                   }}
                 />
-                <div className="items-center justify-center hidden w-full h-full bg-gradient-to-br from-primary to-cardBg">
-                  <User className="w-16 h-16 text-textColor sm:w-20 sm:h-20 md:w-24 md:h-24" />
+                <div className="items-center justify-center hidden w-full h-full bg-gradient-to-br from-background to-surface">
+                  <User className="w-16 h-16 text-primary sm:w-20 sm:h-20 md:w-24 md:h-24" />
                 </div>
               </div>
             </div>
@@ -462,17 +462,17 @@ function App() {
 
           {/* Name with Gradient Text - Responsive typography */}
           <motion.h1
-            className="mb-4 text-3xl font-bold leading-tight text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl"
+            className="mb-4 text-3xl font-bold leading-tight text-primary sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl xl:text-8xl"
             variants={itemVariants}
           >
-            <span className="text-transparent bg-gradient-to-r from-secondary via-accent to-secondary bg-clip-text">
+            <span className="text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-clip-text">
               Ram Krishna
             </span>
           </motion.h1>
 
           {/* Title with Typewriter Effect - Responsive sizing */}
           <motion.h2
-            className="mb-6 text-lg font-light text-secondary sm:mb-8 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
+            className="mb-6 text-lg font-light text-accent sm:mb-8 sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
             variants={itemVariants}
           >
             {personalInfo.title}
@@ -493,8 +493,8 @@ function App() {
           >
             <motion.button
               onClick={() => scrollToSection('projects')}
-              className="relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 overflow-hidden font-semibold text-white rounded-full shadow-2xl group bg-gradient-to-r from-secondary to-accent min-h-[48px] flex items-center justify-center"
-              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(212, 163, 115, 0.3)" }}
+              className="relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 overflow-hidden font-semibold text-white rounded-full shadow-2xl group bg-gradient-to-r from-accent to-accent/80 min-h-[48px] flex items-center justify-center"
+              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0, 112, 243, 0.4)" }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10 flex items-center space-x-2">
@@ -502,7 +502,7 @@ function App() {
                 <ExternalLink className="w-4 h-4 transition-transform sm:w-5 sm:h-5 group-hover:translate-x-1" />
               </span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-accent to-secondary"
+                className="absolute inset-0 bg-gradient-to-r from-accent/80 to-accent"
                 initial={{ x: "-100%" }}
                 whileHover={{ x: "0%" }}
                 transition={{ duration: 0.3 }}
@@ -511,8 +511,8 @@ function App() {
 
             <motion.button
               onClick={handleDownloadCV}
-              className="relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 overflow-hidden font-semibold text-white rounded-full shadow-2xl group bg-gradient-to-r from-secondary to-accent min-h-[48px] flex items-center justify-center"
-              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(212, 163, 115, 0.3)" }}
+              className="relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 overflow-hidden font-semibold text-white rounded-full shadow-2xl group bg-gradient-to-r from-accent to-accent/80 min-h-[48px] flex items-center justify-center"
+              whileHover={{ scale: 1.05, boxShadow: "0 20px 40px rgba(0, 112, 243, 0.4)" }}
               whileTap={{ scale: 0.95 }}
             >
               <span className="relative z-10 flex items-center space-x-2">
@@ -520,7 +520,7 @@ function App() {
                 <span className="text-sm sm:text-base">View CV</span>
               </span>
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-accent to-secondary"
+                className="absolute inset-0 bg-gradient-to-r from-accent/80 to-accent"
                 initial={{ x: "-100%" }}
                 whileHover={{ x: "0%" }}
                 transition={{ duration: 0.3 }}
@@ -529,7 +529,7 @@ function App() {
 
             <motion.button
               onClick={() => scrollToSection('contact')}
-              className="relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 font-semibold text-secondary transition-all border-2 border-secondary rounded-full hover:bg-secondary/10 backdrop-blur-sm group min-h-[48px] flex items-center justify-center"
+              className="relative w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 font-semibold text-accent transition-all border-2 border-accent rounded-full hover:bg-accent/10 backdrop-blur-sm group min-h-[48px] flex items-center justify-center"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -547,7 +547,7 @@ function App() {
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-textColor/60" />
+          <ChevronDown className="w-6 h-6 sm:w-8 sm:h-8 text-textColor/50" />
         </motion.div>
       </section>
 
@@ -561,9 +561,9 @@ function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">About Me</h2>
+            <h2 className="mb-4 text-3xl font-bold text-primary sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">About Me</h2>
             <motion.div
-              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-secondary to-accent"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-accent to-accent/50"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
@@ -574,7 +574,7 @@ function App() {
 
           <div className="max-w-4xl mx-auto">
             <motion.div
-              className="p-4 border shadow-2xl sm:p-6 lg:p-8 bg-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-white/10"
+              className="p-4 border shadow-2xl sm:p-6 lg:p-8 bg-surface backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-border"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -583,13 +583,13 @@ function App() {
             >
               <div className="flex flex-col items-start mb-6 sm:flex-row sm:items-center">
                 <motion.div
-                  className="flex items-center justify-center w-12 h-12 mb-4 rounded-full sm:w-16 sm:h-16 sm:mb-0 sm:mr-6 bg-gradient-to-r from-secondary to-accent"
+                  className="flex items-center justify-center w-12 h-12 mb-4 rounded-full sm:w-16 sm:h-16 sm:mb-0 sm:mr-6 bg-gradient-to-r from-accent to-accent/70"
                   whileHover={{ rotate: 360, scale: 1.1 }}
                   transition={{ duration: 0.6 }}
                 >
                   <User className="w-6 h-6 text-white sm:w-8 sm:h-8" />
                 </motion.div>
-                <h3 className="text-xl font-bold text-white sm:text-2xl lg:text-3xl">My Journey</h3>
+                <h3 className="text-xl font-bold text-primary sm:text-2xl lg:text-3xl">My Journey</h3>
               </div>
 
               <p className="mb-6 text-sm leading-relaxed text-textColor sm:mb-8 sm:text-base lg:text-lg">
@@ -598,14 +598,14 @@ function App() {
 
               <div className="grid gap-4 sm:gap-6 sm:grid-cols-2">
                 {[
-                  { icon: MapPin, label: "Location", value: personalInfo.location, color: "text-secondary" },
+                  { icon: MapPin, label: "Location", value: personalInfo.location, color: "text-accent" },
                   { icon: Mail, label: "Email", value: personalInfo.email, color: "text-accent" },
-                  { icon: Calendar, label: "Status", value: "Available for hire", color: "text-secondary" },
+                  { icon: Calendar, label: "Status", value: "Available for hire", color: "text-accent" },
                   { icon: Award, label: "Experience", value: "2+ Years", color: "text-accent" }
                 ].map(({ icon: Icon, label, value, color }, index) => (
                   <motion.div
                     key={label}
-                    className="flex items-center p-3 space-x-3 transition-all rounded-lg sm:p-4 sm:rounded-xl bg-white/5 hover:bg-white/10"
+                    className="flex items-center p-3 space-x-3 transition-all border rounded-lg sm:p-4 sm:rounded-xl bg-background border-border hover:bg-accent/5"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -626,7 +626,7 @@ function App() {
       </section>
 
       {/* Experience Section */}
-      <section id="experience" className="relative px-3 py-16 sm:px-4 sm:py-20 lg:py-24 bg-cardBg/20">
+      <section id="experience" className="relative px-3 py-16 sm:px-4 sm:py-20 lg:py-24 bg-surface/30">
         <div className="mx-auto max-w-7xl">
           <motion.div
             className="mb-12 text-center sm:mb-16 lg:mb-20"
@@ -635,9 +635,9 @@ function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Experience</h2>
+            <h2 className="mb-4 text-3xl font-bold text-primary sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Experience</h2>
             <motion.div
-              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-secondary to-accent"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-accent to-accent/50"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
@@ -650,7 +650,7 @@ function App() {
             {experience.map((exp, index) => (
               <motion.div
                 key={index}
-                className="relative p-4 mb-6 overflow-hidden border shadow-2xl sm:p-6 lg:p-8 sm:mb-8 bg-white/5 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-white/10"
+                className="relative p-4 mb-6 overflow-hidden border shadow-2xl sm:p-6 lg:p-8 sm:mb-8 bg-surface backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-border"
                 initial={{ opacity: 0, x: index % 2 === 0 ? -100 : 100 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -659,7 +659,7 @@ function App() {
               >
                 {/* Current role highlight */}
                 {exp.isCurrentRole && (
-                  <div className="absolute top-0 right-0 px-3 py-1 text-xs font-semibold text-white sm:px-4 sm:py-2 sm:text-sm bg-gradient-to-r from-secondary to-accent rounded-bl-xl sm:rounded-bl-2xl rounded-tr-2xl sm:rounded-tr-3xl">
+                  <div className="absolute top-0 right-0 px-3 py-1 text-xs font-semibold text-white sm:px-4 sm:py-2 sm:text-sm bg-gradient-to-r from-accent to-accent/70 rounded-bl-xl sm:rounded-bl-2xl rounded-tr-2xl sm:rounded-tr-3xl">
                     Current Role
                   </div>
                 )}
@@ -668,10 +668,10 @@ function App() {
                   <div className="flex items-start mb-4 space-x-3 sm:space-x-4 sm:mb-0">
                     <motion.div
                       className={`w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full flex-shrink-0 ${exp.isCurrentRole
-                        ? 'bg-gradient-to-r from-secondary to-accent'
+                        ? 'bg-gradient-to-r from-accent to-accent/70'
                         : exp.type === 'education'
-                          ? 'bg-gradient-to-r from-secondary to-accent'
-                          : 'bg-gradient-to-r from-secondary to-accent'
+                          ? 'bg-gradient-to-r from-accent to-accent/70'
+                          : 'bg-gradient-to-r from-accent to-accent/70'
                         } flex items-center justify-center`}
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.6 }}
@@ -683,21 +683,21 @@ function App() {
                       )}
                     </motion.div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="mb-1 text-lg font-bold leading-tight text-white sm:text-xl lg:text-2xl">{exp.position}</h3>
+                      <h3 className="mb-1 text-lg font-bold leading-tight text-primary sm:text-xl lg:text-2xl">{exp.position}</h3>
                       <p className={`text-sm sm:text-base font-semibold ${exp.isCurrentRole
-                        ? 'text-secondary'
+                        ? 'text-accent'
                         : exp.type === 'education'
                           ? 'text-accent'
-                          : 'text-secondary'
+                          : 'text-accent'
                         }`}>{exp.company}</p>
                     </div>
                   </div>
                   <div className="flex justify-end sm:justify-start">
                     <span className={`text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full whitespace-nowrap ${exp.isCurrentRole
-                      ? 'bg-secondary/20 text-secondary'
+                      ? 'bg-accent/20 text-accent border border-accent/30'
                       : exp.type === 'education'
-                        ? 'bg-accent/20 text-accent'
-                        : 'bg-white/10 text-textColor/60'
+                        ? 'bg-accent/20 text-accent border border-accent/30'
+                        : 'bg-border/50 text-textColor'
                       }`}>
                       {exp.duration}
                     </span>
@@ -715,10 +715,10 @@ function App() {
                       transition={{ duration: 0.6, delay: (index * 0.2) + (respIndex * 0.1) }}
                     >
                       <div className={`w-2 h-2 flex-shrink-0 ${exp.isCurrentRole
-                        ? 'bg-secondary'
+                        ? 'bg-accent'
                         : exp.type === 'education'
                           ? 'bg-accent'
-                          : 'bg-secondary'
+                          : 'bg-accent'
                         } rounded-full mt-2`} />
                       <p className="text-sm leading-relaxed text-textColor sm:text-base">{resp}</p>
                     </motion.div>
@@ -740,10 +740,10 @@ function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Featured Projects</h2>
+            <h2 className="mb-4 text-3xl font-bold text-primary sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Featured Projects</h2>
             <p className="px-4 mb-4 text-base text-textColor sm:mb-6 sm:text-lg lg:text-xl sm:px-0">Showcasing my latest work and innovations</p>
             <motion.div
-              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-secondary to-accent"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-accent to-accent/50"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
@@ -756,7 +756,7 @@ function App() {
             {projects.map((project, index) => (
               <motion.div
                 key={index}
-                className="relative p-4 overflow-hidden transition-all border shadow-2xl sm:p-5 lg:p-6 group bg-cardBg backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-secondary/20 hover:bg-cardBg/80"
+                className="relative p-4 overflow-hidden transition-all border shadow-2xl sm:p-5 lg:p-6 group bg-surface backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-border hover:border-accent/30"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -772,7 +772,7 @@ function App() {
 
                 {/* Category badge */}
                 <motion.div
-                  className="absolute px-2 py-1 text-xs rounded-full text-textColor sm:px-3 top-3 sm:top-4 right-3 sm:right-4 bg-secondary/20 backdrop-blur-lg"
+                  className="absolute px-2 py-1 text-xs border rounded-full text-textColor sm:px-3 top-3 sm:top-4 right-3 sm:right-4 bg-accent/20 backdrop-blur-lg border-accent/30"
                   initial={{ scale: 0 }}
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
@@ -791,14 +791,14 @@ function App() {
                 </motion.div>
 
                 <div className="flex items-start justify-between mb-3 sm:mb-4">
-                  <h3 className="pr-2 text-lg font-bold leading-tight text-white transition-colors sm:text-xl group-hover:text-accent">
+                  <h3 className="pr-2 text-lg font-bold leading-tight transition-colors text-primary sm:text-xl group-hover:text-accent">
                     {project.title}
                   </h3>
                   <motion.a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex-shrink-0 p-2 transition-colors border rounded-full text-secondary sm:p-3 hover:text-accent bg-secondary/20 hover:bg-secondary/30 border-secondary/30 hover:border-accent/50"
+                    className="flex-shrink-0 p-2 transition-colors border rounded-full text-accent sm:p-3 hover:text-accent bg-accent/10 hover:bg-accent/20 border-accent/30 hover:border-accent"
                     whileHover={{ scale: 1.1, rotate: 15 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={(e) => {
@@ -811,7 +811,7 @@ function App() {
                   </motion.a>
                 </div>
 
-                <p className="mb-3 text-xs font-medium leading-relaxed text-secondary sm:mb-4 sm:text-sm">
+                <p className="mb-3 text-xs font-medium leading-relaxed text-accent sm:mb-4 sm:text-sm">
                   {project.tech}
                 </p>
 
@@ -823,7 +823,7 @@ function App() {
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center w-full px-3 sm:px-4 py-2.5 sm:py-3 space-x-2 text-xs sm:text-sm font-semibold text-white transition-all border rounded-lg cursor-pointer bg-secondary/80 hover:bg-secondary border-secondary/50 hover:border-accent min-h-[40px] sm:min-h-[44px]"
+                  className="flex items-center justify-center w-full px-3 sm:px-4 py-2.5 sm:py-3 space-x-2 text-xs sm:text-sm font-semibold text-white transition-all border rounded-lg cursor-pointer bg-accent hover:bg-accent/90 border-accent hover:border-accent min-h-[40px] sm:min-h-[44px]"
                   whileHover={{ scale: 1.02, x: 0 }}
                   whileTap={{ scale: 0.98 }}
                   transition={{ duration: 0.3 }}
@@ -852,10 +852,10 @@ function App() {
               href={personalInfo.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative px-8 py-4 overflow-hidden text-base font-bold text-white border-2 border-transparent rounded-full shadow-2xl sm:px-12 sm:py-5 sm:text-lg group bg-gradient-to-r from-secondary to-accent hover:border-accent/50"
+              className="relative px-8 py-4 overflow-hidden text-base font-bold text-white border-2 border-transparent rounded-full shadow-2xl sm:px-12 sm:py-5 sm:text-lg group bg-gradient-to-r from-accent to-accent/80 hover:border-accent"
               whileHover={{
                 scale: 1.05,
-                boxShadow: "0 25px 50px rgba(0, 137, 123, 0.4)",
+                boxShadow: "0 25px 50px rgba(0, 112, 243, 0.4)",
                 y: -5
               }}
               whileTap={{ scale: 0.95 }}
@@ -874,7 +874,7 @@ function App() {
 
               {/* Animated background gradient */}
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-accent to-secondary"
+                className="absolute inset-0 bg-gradient-to-r from-accent/80 to-accent"
                 initial={{ x: "-100%" }}
                 whileHover={{ x: "0%" }}
                 transition={{ duration: 0.4 }}
@@ -902,7 +902,7 @@ function App() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="px-3 py-16 sm:px-4 sm:py-20 lg:py-24 bg-cardBg/20">
+      <section id="skills" className="px-3 py-16 sm:px-4 sm:py-20 lg:py-24 bg-surface/30">
         <div className="mx-auto max-w-7xl">
           <motion.div
             className="mb-12 text-center sm:mb-16 lg:mb-20"
@@ -911,10 +911,10 @@ function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Technical Skills</h2>
+            <h2 className="mb-4 text-3xl font-bold text-primary sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Technical Skills</h2>
             <p className="px-4 mb-4 text-base text-textColor sm:mb-6 sm:text-lg lg:text-xl sm:px-0">Technologies and tools I work with</p>
             <motion.div
-              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-secondary to-accent"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-accent to-accent/50"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
@@ -934,11 +934,11 @@ function App() {
               };
 
               const categoryColors = {
-                "Frontend": "from-secondary to-accent",
-                "Backend": "from-accent to-secondary",
-                "Database": "from-secondary to-accent",
-                "Deployment": "from-accent to-secondary",
-                "Tools": "from-secondary to-accent"
+                "Frontend": "from-accent to-accent/70",
+                "Backend": "from-accent/70 to-accent",
+                "Database": "from-accent to-accent/70",
+                "Deployment": "from-accent/70 to-accent",
+                "Tools": "from-accent to-accent/70"
               };
 
               // Skill icons mapping with actual technology logos/symbols
@@ -974,32 +974,32 @@ function App() {
 
               const skillColors = {
                 // Frontend
-                "React.js": "from-secondary to-accent",
-                "Next.js": "from-accent to-secondary",
-                "TypeScript": "from-secondary to-accent",
-                "Tailwind CSS": "from-accent to-secondary",
-                "Redux": "from-secondary to-accent",
-                "HTML5": "from-accent to-secondary",
-                "SEO Optimization": "from-secondary to-accent",
+                "React.js": "from-accent to-accent/70",
+                "Next.js": "from-accent/70 to-accent",
+                "TypeScript": "from-accent to-accent/70",
+                "Tailwind CSS": "from-accent/70 to-accent",
+                "Redux": "from-accent to-accent/70",
+                "HTML5": "from-accent/70 to-accent",
+                "SEO Optimization": "from-accent to-accent/70",
                 // Backend
-                "Node.js": "from-accent to-secondary",
-                "Express.js": "from-secondary to-accent",
-                "Python": "from-accent to-secondary",
-                "GraphQL": "from-secondary to-accent",
-                "JWT": "from-accent to-secondary",
-                "RESTful API": "from-secondary to-accent",
+                "Node.js": "from-accent/70 to-accent",
+                "Express.js": "from-accent to-accent/70",
+                "Python": "from-accent/70 to-accent",
+                "GraphQL": "from-accent to-accent/70",
+                "JWT": "from-accent/70 to-accent",
+                "RESTful API": "from-accent to-accent/70",
                 // Database
-                "MongoDB": "from-accent to-secondary",
-                "PostgreSQL": "from-secondary to-accent",
-                "MySQL": "from-accent to-secondary",
+                "MongoDB": "from-accent/70 to-accent",
+                "PostgreSQL": "from-accent to-accent/70",
+                "MySQL": "from-accent/70 to-accent",
                 // Deployment
-                "Vercel": "from-secondary to-accent",
-                "Microsoft Azure": "from-accent to-secondary",
-                "VPS Hosting": "from-secondary to-accent",
+                "Vercel": "from-accent to-accent/70",
+                "Microsoft Azure": "from-accent/70 to-accent",
+                "VPS Hosting": "from-accent to-accent/70",
                 // Tools
-                "Git": "from-accent to-secondary",
-                "Figma": "from-secondary to-accent",
-                "WebSockets": "from-accent to-secondary"
+                "Git": "from-accent/70 to-accent",
+                "Figma": "from-accent to-accent/70",
+                "WebSockets": "from-accent/70 to-accent"
               };
 
               const Icon = categoryIcons[category as keyof typeof categoryIcons] || Code;
@@ -1008,7 +1008,7 @@ function App() {
               return (
                 <motion.div
                   key={category}
-                  className="p-4 transition-all border shadow-2xl sm:p-6 lg:p-8 bg-cardBg backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-secondary/20 hover:bg-cardBg/80"
+                  className="p-4 transition-all border shadow-2xl sm:p-6 lg:p-8 bg-surface backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-border hover:border-accent/30"
                   initial={{ opacity: 0, scale: 0.8 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
@@ -1023,7 +1023,7 @@ function App() {
                     >
                       <Icon className="w-6 h-6 text-white sm:w-7 sm:h-7 lg:w-8 lg:h-8" />
                     </motion.div>
-                    <h3 className="text-lg font-bold text-white sm:text-xl lg:text-2xl">{category}</h3>
+                    <h3 className="text-lg font-bold text-primary sm:text-xl lg:text-2xl">{category}</h3>
                   </div>
 
                   <div className="space-y-3 sm:space-y-4">
@@ -1039,8 +1039,8 @@ function App() {
                           delay: (categoryIndex * 0.2) + (skillIndex * 0.1)
                         }}
                       >
-                        <div className="flex items-center justify-between p-3 transition-all rounded-lg sm:p-4 sm:rounded-xl bg-cardBg/50 hover:bg-secondary/10 group-hover:scale-105">
-                          <span className="text-sm font-medium transition-colors text-textColor group-hover:text-white sm:text-base">
+                        <div className="flex items-center justify-between p-3 transition-all border rounded-lg sm:p-4 sm:rounded-xl bg-background border-border hover:bg-accent/5 hover:border-accent/30 group-hover:scale-105">
+                          <span className="text-sm font-medium transition-colors text-textColor group-hover:text-accent sm:text-base">
                             {skill}
                           </span>
                           <div className="flex items-center space-x-2">
@@ -1113,10 +1113,10 @@ function App() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="mb-4 text-3xl font-bold text-white sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Let's Work Together</h2>
+            <h2 className="mb-4 text-3xl font-bold text-primary sm:mb-6 sm:text-4xl md:text-5xl lg:text-6xl">Let's Work Together</h2>
             <p className="px-4 mb-4 text-base text-textColor sm:mb-6 sm:text-lg lg:text-xl sm:px-0">Ready to bring your ideas to life? Let's discuss your next project.</p>
             <motion.div
-              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-secondary to-accent"
+              className="w-20 h-1 mx-auto sm:w-24 lg:w-32 bg-gradient-to-r from-accent to-accent/50"
               initial={{ width: 0 }}
               whileInView={{ width: "5rem" }}
               viewport={{ once: true }}
@@ -1128,24 +1128,24 @@ function App() {
           <div className="grid items-start max-w-6xl gap-6 mx-auto sm:gap-8 lg:gap-12 lg:grid-cols-2">
             {/* Contact Info */}
             <motion.div
-              className="p-4 border shadow-2xl sm:p-6 lg:p-8 bg-cardBg backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-secondary/20"
+              className="p-4 border shadow-2xl sm:p-6 lg:p-8 bg-surface backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-border"
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(0, 137, 123, 0.2)" }}
+              whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(0, 112, 243, 0.2)" }}
             >
-              <h3 className="mb-6 text-2xl font-bold text-white sm:mb-8 sm:text-3xl">Get In Touch</h3>
+              <h3 className="mb-6 text-2xl font-bold text-primary sm:mb-8 sm:text-3xl">Get In Touch</h3>
 
               <div className="mb-8 space-y-4 sm:mb-12 sm:space-y-6">
                 {[
-                  { icon: Mail, label: "Email", value: personalInfo.email, color: "text-secondary" },
+                  { icon: Mail, label: "Email", value: personalInfo.email, color: "text-accent" },
                   { icon: Phone, label: "Phone", value: personalInfo.phone, color: "text-accent" },
-                  { icon: MapPin, label: "Location", value: personalInfo.location, color: "text-secondary" }
+                  { icon: MapPin, label: "Location", value: personalInfo.location, color: "text-accent" }
                 ].map(({ icon: Icon, label, value, color }, index) => (
                   <motion.div
                     key={label}
-                    className="flex items-center p-3 space-x-3 transition-all rounded-lg cursor-pointer sm:p-4 sm:space-x-4 group sm:rounded-xl hover:bg-secondary/10"
+                    className="flex items-center p-3 space-x-3 transition-all border rounded-lg cursor-pointer sm:p-4 sm:space-x-4 group sm:rounded-xl hover:bg-accent/10 border-border hover:border-accent/30"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -1153,7 +1153,7 @@ function App() {
                     whileHover={{ scale: 1.05, x: 10 }}
                   >
                     <motion.div
-                      className="flex-shrink-0 p-3 rounded-full sm:p-4 bg-gradient-to-r from-secondary to-accent"
+                      className="flex-shrink-0 p-3 rounded-full sm:p-4 bg-gradient-to-r from-accent to-accent/70"
                       whileHover={{ rotate: 360, scale: 1.1 }}
                       transition={{ duration: 0.6 }}
                     >
@@ -1167,20 +1167,20 @@ function App() {
                 ))}
               </div>
 
-              <div className="pt-6 border-t sm:pt-8 border-secondary/20">
-                <h4 className="mb-4 text-lg font-semibold text-white sm:mb-6 sm:text-xl">Connect With Me</h4>
+              <div className="pt-6 border-t sm:pt-8 border-border">
+                <h4 className="mb-4 text-lg font-semibold text-primary sm:mb-6 sm:text-xl">Connect With Me</h4>
                 <div className="flex space-x-3 sm:space-x-4">
                   {[
-                    { href: personalInfo.github, icon: Github, label: "GitHub", color: "hover:bg-secondary" },
-                    { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn", color: "hover:bg-secondary" },
-                    { href: personalInfo.twitter, icon: Twitter, label: "Twitter", color: "hover:bg-accent" }
+                    { href: personalInfo.github, icon: Github, label: "GitHub", color: "hover:bg-accent/10" },
+                    { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn", color: "hover:bg-accent/10" },
+                    { href: personalInfo.twitter, icon: Twitter, label: "Twitter", color: "hover:bg-accent/10" }
                   ].map(({ href, icon: Icon, label, color }, index) => (
                     <motion.a
                       key={label}
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`bg-cardBg p-3 sm:p-4 rounded-full transition-all group relative ${color} min-w-[48px] min-h-[48px] flex items-center justify-center`}
+                      className={`bg-background border border-border p-3 sm:p-4 rounded-full transition-all group relative ${color} min-w-[48px] min-h-[48px] flex items-center justify-center hover:border-accent`}
                       initial={{ scale: 0, rotate: -180 }}
                       whileInView={{ scale: 1, rotate: 0 }}
                       viewport={{ once: true }}
@@ -1188,9 +1188,9 @@ function App() {
                       whileHover={{ scale: 1.2, y: -5 }}
                       whileTap={{ scale: 0.9 }}
                     >
-                      <Icon className="w-5 h-5 transition-colors text-textColor sm:w-6 sm:h-6 group-hover:text-white" />
+                      <Icon className="w-5 h-5 transition-colors text-textColor sm:w-6 sm:h-6 group-hover:text-accent" />
                       <motion.div
-                        className="absolute px-2 py-1 text-xs text-white transition-opacity transform -translate-x-1/2 rounded-lg opacity-0 bg-cardBg sm:px-3 sm:text-sm -top-12 left-1/2 group-hover:opacity-100 whitespace-nowrap"
+                        className="absolute px-2 py-1 text-xs transition-opacity transform -translate-x-1/2 border rounded-lg opacity-0 text-textColor bg-surface border-border sm:px-3 sm:text-sm -top-12 left-1/2 group-hover:opacity-100 whitespace-nowrap"
                         initial={{ opacity: 0, y: 10 }}
                         whileHover={{ opacity: 1, y: 0 }}
                       >
@@ -1204,18 +1204,18 @@ function App() {
 
             {/* Contact Form */}
             <motion.div
-              className="p-4 border shadow-2xl sm:p-6 lg:p-8 bg-cardBg backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-secondary/20"
+              className="p-4 border shadow-2xl sm:p-6 lg:p-8 bg-surface backdrop-blur-2xl rounded-2xl sm:rounded-3xl border-border"
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(0, 137, 123, 0.2)" }}
+              whileHover={{ y: -10, boxShadow: "0 25px 50px rgba(0, 112, 243, 0.2)" }}
             >
-              <h3 className="mb-6 text-2xl font-bold text-white sm:mb-8 sm:text-3xl">Send Message</h3>
+              <h3 className="mb-6 text-2xl font-bold text-primary sm:mb-8 sm:text-3xl">Send Message</h3>
 
               {submitStatus === 'success' && (
                 <motion.div
-                  className="p-3 mb-4 text-sm border text-accent sm:p-4 sm:mb-6 sm:text-base bg-secondary/20 border-secondary/30 rounded-xl sm:rounded-2xl"
+                  className="p-3 mb-4 text-sm border text-accent sm:p-4 sm:mb-6 sm:text-base bg-accent/10 border-accent/30 rounded-xl sm:rounded-2xl"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                 >
@@ -1246,7 +1246,7 @@ function App() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                     >
-                      <label className="block mb-2 text-sm font-medium text-white sm:text-base">{field}</label>
+                      <label className="block mb-2 text-sm font-medium text-primary sm:text-base">{field}</label>
                       <motion.input
                         name={name}
                         type={type}
@@ -1254,7 +1254,7 @@ function App() {
                         onChange={handleInputChange}
                         placeholder={`Your ${field.toLowerCase()}`}
                         required
-                        className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base text-white placeholder-textColor/40 transition-all border bg-cardBg/50 border-secondary/20 rounded-xl sm:rounded-2xl focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20 min-h-[44px]"
+                        className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base text-textColor placeholder-textColor/40 transition-all border bg-background border-border rounded-xl sm:rounded-2xl focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 min-h-[44px]"
                         whileFocus={{ scale: 1.02 }}
                         disabled={isSubmitting}
                       />
@@ -1268,7 +1268,7 @@ function App() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <label className="block mb-2 text-sm font-medium text-white sm:text-base">Subject</label>
+                  <label className="block mb-2 text-sm font-medium text-primary sm:text-base">Subject</label>
                   <motion.input
                     name="subject"
                     type="text"
@@ -1276,7 +1276,7 @@ function App() {
                     onChange={handleInputChange}
                     placeholder="Project discussion"
                     required
-                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base text-white placeholder-textColor/40 transition-all border bg-cardBg/50 border-secondary/20 rounded-xl sm:rounded-2xl focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20 min-h-[44px]"
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base text-textColor placeholder-textColor/40 transition-all border bg-background border-border rounded-xl sm:rounded-2xl focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 min-h-[44px]"
                     whileFocus={{ scale: 1.02 }}
                     disabled={isSubmitting}
                   />
@@ -1288,7 +1288,7 @@ function App() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                  <label className="block mb-2 text-sm font-medium text-white sm:text-base">Message</label>
+                  <label className="block mb-2 text-sm font-medium text-primary sm:text-base">Message</label>
                   <motion.textarea
                     name="message"
                     rows={4}
@@ -1296,7 +1296,7 @@ function App() {
                     onChange={handleInputChange}
                     placeholder="Tell me about your project..."
                     required
-                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base text-white placeholder-textColor/40 transition-all border resize-none bg-cardBg/50 border-secondary/20 rounded-xl sm:rounded-2xl focus:border-secondary focus:outline-none focus:ring-2 focus:ring-secondary/20 min-h-[100px]"
+                    className="w-full px-4 sm:px-6 py-3 sm:py-4 text-sm sm:text-base text-textColor placeholder-textColor/40 transition-all border resize-none bg-background border-border rounded-xl sm:rounded-2xl focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20 min-h-[100px]"
                     whileFocus={{ scale: 1.02 }}
                     disabled={isSubmitting}
                   ></motion.textarea>
@@ -1305,7 +1305,7 @@ function App() {
                 <motion.button
                   type="submit"
                   disabled={isSubmitting}
-                  className="relative flex items-center justify-center w-full py-3 sm:py-4 space-x-2 overflow-hidden font-semibold text-white transition-all shadow-xl bg-gradient-to-r from-secondary to-accent rounded-xl sm:rounded-2xl hover:shadow-2xl group disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px]"
+                  className="relative flex items-center justify-center w-full py-3 sm:py-4 space-x-2 overflow-hidden font-semibold text-white transition-all shadow-xl bg-gradient-to-r from-accent to-accent/80 rounded-xl sm:rounded-2xl hover:shadow-2xl group disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px]"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
@@ -1332,7 +1332,7 @@ function App() {
                   </span>
                   {!isSubmitting && (
                     <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-accent to-secondary"
+                      className="absolute inset-0 bg-gradient-to-r from-accent/80 to-accent"
                       initial={{ x: "-100%" }}
                       whileHover={{ x: "0%" }}
                       transition={{ duration: 0.3 }}
@@ -1347,7 +1347,7 @@ function App() {
 
       {/* Footer */}
       <motion.footer
-        className="relative px-3 py-12 overflow-hidden border-t sm:px-4 sm:py-16 lg:py-20 bg-gradient-to-b from-primary via-cardBg to-primary border-secondary/20"
+        className="relative px-3 py-12 overflow-hidden border-t sm:px-4 sm:py-16 lg:py-20 bg-gradient-to-b from-background via-surface to-background border-border"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
@@ -1355,14 +1355,14 @@ function App() {
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary/20 via-transparent to-accent/20" />
+          <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-transparent to-accent/20" />
           <motion.div
             className="absolute top-0 left-0 w-full h-full"
             animate={{
               background: [
-                "radial-gradient(circle at 20% 20%, rgba(0, 137, 123, 0.1) 0%, transparent 50%)",
-                "radial-gradient(circle at 80% 80%, rgba(38, 166, 154, 0.1) 0%, transparent 50%)",
-                "radial-gradient(circle at 40% 60%, rgba(0, 137, 123, 0.1) 0%, transparent 50%)"
+                "radial-gradient(circle at 20% 20%, rgba(0, 112, 243, 0.1) 0%, transparent 50%)",
+                "radial-gradient(circle at 80% 80%, rgba(0, 112, 243, 0.1) 0%, transparent 50%)",
+                "radial-gradient(circle at 40% 60%, rgba(0, 112, 243, 0.1) 0%, transparent 50%)"
               ]
             }}
             transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
@@ -1384,7 +1384,7 @@ function App() {
                 className="mb-3 text-2xl font-bold sm:mb-4 sm:text-3xl lg:text-4xl"
                 whileHover={{ scale: 1.05 }}
               >
-                <span className="text-transparent bg-gradient-to-r from-secondary via-accent to-secondary bg-clip-text">
+                <span className="text-transparent bg-gradient-to-r from-primary via-accent to-primary bg-clip-text">
                   Ram Krishna Yadav
                 </span>
               </motion.h3>
@@ -1394,15 +1394,15 @@ function App() {
               </p>
               <div className="flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4 sm:items-start sm:justify-start">
                 <motion.div
-                  className="flex items-center space-x-2 text-sm text-gray-400 sm:text-base"
-                  whileHover={{ scale: 1.05, color: "#ffffff" }}
+                  className="flex items-center space-x-2 text-sm text-textColor/60 sm:text-base"
+                  whileHover={{ scale: 1.05, color: "#EDEDED" }}
                 >
                   <MapPin className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
                   <span>Nepal</span>
                 </motion.div>
                 <motion.a
                   href={`mailto:${personalInfo.email}`}
-                  className="flex items-center space-x-2 text-sm transition-colors text-textColor hover:text-secondary sm:text-base"
+                  className="flex items-center space-x-2 text-sm transition-colors text-textColor hover:text-accent sm:text-base"
                   whileHover={{ scale: 1.05 }}
                 >
                   <Mail className="flex-shrink-0 w-4 h-4 sm:w-5 sm:h-5" />
@@ -1418,13 +1418,13 @@ function App() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h4 className="mb-6 text-xl font-semibold text-white">Quick Links</h4>
+              <h4 className="mb-6 text-xl font-semibold text-primary">Quick Links</h4>
               <ul className="space-y-3">
                 {navItems.map((item) => (
                   <motion.li key={item.id}>
                     <motion.button
                       onClick={() => scrollToSection(item.id)}
-                      className="block text-left transition-colors text-textColor hover:text-secondary"
+                      className="block text-left transition-colors text-textColor hover:text-accent"
                       whileHover={{ x: 5 }}
                       transition={{ duration: 0.2 }}
                     >
@@ -1442,12 +1442,12 @@ function App() {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h4 className="mb-6 text-xl font-semibold text-white">Technologies</h4>
+              <h4 className="mb-6 text-xl font-semibold text-primary">Technologies</h4>
               <ul className="space-y-3">
                 {['React.js & Next.js', 'Node.js & Express', 'MongoDB & PostgreSQL', 'TypeScript', 'Cloud Deployment'].map((tech) => (
                   <motion.li
                     key={tech}
-                    className="transition-colors text-textColor hover:text-secondary"
+                    className="transition-colors text-textColor hover:text-accent"
                     whileHover={{ x: 5 }}
                     transition={{ duration: 0.2 }}
                   >
@@ -1460,7 +1460,7 @@ function App() {
 
           {/* Social Media & Contact */}
           <motion.div
-            className="pt-8 border-t border-secondary/20"
+            className="pt-8 border-t border-border"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -1469,16 +1469,16 @@ function App() {
             <div className="flex flex-col items-center justify-between md:flex-row">
               <div className="flex mb-6 space-x-6 md:mb-0">
                 {[
-                  { href: personalInfo.github, icon: Github, label: "GitHub", color: "hover:text-secondary" },
+                  { href: personalInfo.github, icon: Github, label: "GitHub", color: "hover:text-accent" },
                   { href: personalInfo.linkedin, icon: Linkedin, label: "LinkedIn", color: "hover:text-accent" },
-                  { href: `mailto:${personalInfo.email}`, icon: Mail, label: "Email", color: "hover:text-secondary" }
+                  { href: `mailto:${personalInfo.email}`, icon: Mail, label: "Email", color: "hover:text-accent" }
                 ].map(({ href, icon: Icon, label, color }, index) => (
                   <motion.a
                     key={label}
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`group relative p-4 rounded-full bg-cardBg text-textColor ${color} transition-all border border-secondary/20 hover:border-secondary`}
+                    className={`group relative p-4 rounded-full bg-surface text-textColor ${color} transition-all border border-border hover:border-accent`}
                     initial={{ scale: 0, rotate: -180 }}
                     whileInView={{ scale: 1, rotate: 0 }}
                     viewport={{ once: true }}
@@ -1488,7 +1488,7 @@ function App() {
                   >
                     <Icon className="w-6 h-6" />
                     <motion.div
-                      className="absolute px-3 py-1 text-sm text-white transition-opacity transform -translate-x-1/2 border rounded-lg opacity-0 bg-cardBg -top-12 left-1/2 group-hover:opacity-100 whitespace-nowrap border-secondary/30"
+                      className="absolute px-3 py-1 text-sm transition-opacity transform -translate-x-1/2 border rounded-lg opacity-0 text-textColor bg-surface -top-12 left-1/2 group-hover:opacity-100 whitespace-nowrap border-border"
                       initial={{ opacity: 0, y: 10 }}
                       whileHover={{ opacity: 1, y: 0 }}
                     >
@@ -1521,7 +1521,7 @@ function App() {
                 top: `${Math.random() * 100}%`,
                 width: Math.random() * 4 + 2,
                 height: Math.random() * 4 + 2,
-                background: `rgba(${Math.random() > 0.5 ? '59, 130, 246' : '147, 51, 234'}, ${Math.random() * 0.5 + 0.1})`,
+                background: `rgba(${Math.random() > 0.5 ? '0, 112, 243' : '0, 112, 243'}, ${Math.random() * 0.5 + 0.1})`,
               }}
               animate={{
                 y: [0, -Math.random() * 200 - 50, 0],
@@ -1540,7 +1540,7 @@ function App() {
         </div>
 
         {/* Gradient overlay at bottom */}
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-secondary via-accent to-secondary" />
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-accent via-accent/50 to-accent" />
       </motion.footer>
     </div>
   );
